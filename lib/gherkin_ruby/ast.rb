@@ -13,6 +13,22 @@ module GherkinRuby
       end
     end
 
+    class FeatureGroup < Node
+      attr_reader :name, :features
+      attr_writer :features
+
+      include Enumerable
+
+      def initialize(name, features=[])
+        @name     = name
+        @features = features
+      end
+
+      def each
+        @features.each
+      end
+    end
+
     class Feature < Node
       attr_reader :name, :background, :scenarios, :tags
       attr_writer :background, :scenarios, :tags
