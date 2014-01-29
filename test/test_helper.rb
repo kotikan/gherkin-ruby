@@ -1,4 +1,4 @@
 gem 'minitest'
-require 'minitest/spec'
 require 'minitest/autorun'
+require 'minitest/spec'
 require_relative '../lib/gherkin_ruby'
