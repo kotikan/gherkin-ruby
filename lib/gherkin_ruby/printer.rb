@@ -5,35 +5,56 @@ module GherkinRuby
 
     #creates a feature file in the supplied directory and writes the supplied AST(abstract syntax tree) object to it
     def print(ast, path)
-      result = feature(ast.instance_variable_get('@name'))
-      #prints background steps
-      ast.background.instance_variable_get('@steps').each do |step|
-        result << step(step.instance_variable_get('@keyword'), step.instance_variable_get('@name'))
-      end
+      result = format_tags(ast.tags)
+      result << format_feature(ast.name)
+      result << format_steps(ast.background.steps)
       #prints scenarios
-      ast.instance_variable_get('@scenarios').each do |scenario|
-        result << scenario(scenario.instance_variable_get('@name'))
-        #prints scenario steps
-        scenario.instance_variable_get('@steps').each do |step|
-          result << step(step.instance_variable_get('@keyword'), step.instance_variable_get('@name'))
-        end
+      ast.scenarios.each do |scenario|
+        result << format_tags(scenario.tags)
+        result << format_scenario(scenario.name)
+        result << format_steps(scenario.steps)
       end
       #creates a feature file named after the feature and writes result to the file (path is relative to home directory)
-      out_file = File.new(ENV['HOME'] + "/#{path}#{ast.instance_variable_get('@name')}.feature", 'w')
+      result.strip!
+      out_file = File.new(ENV['HOME'] + "/#{path}#{ast.name}.feature", 'w')
       out_file.puts(result)
       out_file.close
     end
 
-    def feature(name)
+    #prints feature name
+    def format_feature(name)
       "Feature: #{name}\n\n  Background:\n"
     end
 
-    def scenario(name)
-      "\n  Scenario: #{name}\n"
+    #prints scenario name
+    def format_scenario(name)
+      "  Scenario: #{name}\n"
     end
 
-    def step(keyword, name)
-      "    #{keyword} #{name}\n"
+    #prints steps
+    def format_steps(steps)
+      result = ''
+      if steps != []
+        steps.each do |step|
+          result << "    #{step.keyword} #{step.name}\n"
+        end
+        result << "\n"
+      end
+      result
     end
+
+    #prints tags for scenarios
+    def format_tags(tags)
+      result = ''
+      if tags != []
+        result = ' '
+        tags.each do |tag|
+          result << " @#{tag.name}"
+        end
+        result << "\n"
+      end
+      result
+    end
+
   end
 end

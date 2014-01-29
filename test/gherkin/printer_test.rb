@@ -5,7 +5,8 @@ require_relative '../test_helper'
 module GherkinRuby
   describe 'write AST object to directory' do
     before do
-      scenario = """Feature: My Feature
+      scenario = """@Ninja
+Feature: My Feature
   In order to do something #w000t peoeple
   As a developer
   I want to be happy #yeah
@@ -32,11 +33,12 @@ module GherkinRuby
       ast = parser.parse(scenario)
       path = 'Documents/'
       printer.print(ast, path)
-      @result = File.read(ENV['HOME'] + "/#{path}#{ast.instance_variable_get('@name')}.feature")
+      @result = File.read(ENV['HOME'] + "/#{path}#{ast.name}.feature")
     end
 
     it 'prints a nice feature file' do
-      @result.must_equal( """Feature: My Feature
+      @result.must_equal( """@Ninja
+Feature: My Feature
 
   Background:
     Given something happens before anything else happens
@@ -46,6 +48,7 @@ module GherkinRuby
     Given something happens
     Then something cooler happens
 
+  @javascript @wip
   Scenario: something else happens
     Given foo
     Then bar
