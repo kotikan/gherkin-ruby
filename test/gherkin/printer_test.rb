@@ -46,7 +46,7 @@ module GherkinRuby
       feature_group1 = GherkinRuby::AST::FeatureGroup.new("Nested Nested Feature Group",
                                                           features_and_feature_groups=[parser.parse(feature1),
                                                                                        parser.parse(feature2)])
-      feature_group2 = GherkinRuby::AST::FeatureGroup.new("Nested Feature Group2",
+      feature_group2 = GherkinRuby::AST::FeatureGroup.new("Nested Feature Group",
                                                           features_and_feature_groups=[parser.parse(feature1),
                                                           feature_group1])
       feature_group3 = GherkinRuby::AST::FeatureGroup.new("Feature Group",
