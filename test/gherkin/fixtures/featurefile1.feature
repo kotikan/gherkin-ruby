@@ -3,6 +3,7 @@ Feature: Serve coffee
   Background:
     Given coffee
 
+  @coffeeshop
   Scenario: Buy last coffee
     Given there are 1 coffees left in the machine
     And I have deposited 1$

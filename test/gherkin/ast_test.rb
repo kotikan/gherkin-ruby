@@ -26,7 +26,7 @@ module GherkinRuby
       end
     end
 
-    [Feature, Scenario, Tag].each do |node|
+    [FeatureGroup, Feature, Scenario, Tag].each do |node|
       describe node do
         it 'is a Node' do
           node.ancestors.must_include Node
@@ -37,6 +37,14 @@ module GherkinRuby
           instance.name.must_equal 'Name'
           instance.must_respond_to :line
         end
+      end
+    end
+
+    describe FeatureGroup do
+      it 'is Enumerable' do
+        elements = ['+foo', '+bar']
+        instance = FeatureGroup.new("features", elements)
+        instance.each.to_a.must_equal ['+foo', '+bar']
       end
     end
 

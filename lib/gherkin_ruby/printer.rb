@@ -3,16 +3,29 @@
 module GherkinRuby
   class Printer
 
+    #
+    def print_feature_group(ast, path)
+      path << ast.name
+      FileUtils.mkdir_p(ENV['HOME'] + "/#{path}")
+      ast.each do |feature_or_feature_group|
+        if feature_or_feature_group.class.equal?(GherkinRuby::AST::FeatureGroup)
+          print_feature_group(feature_or_feature_group,"#{path}/")
+        else
+          print_feature(feature_or_feature_group,"#{path}/")
+        end
+      end
+    end
+
     #creates a feature file in the supplied directory and writes the supplied AST(abstract syntax tree) object to it
-    def print(ast, path)
+    def print_feature(ast, path)
       result = format_tags(ast.tags)
       result << format_feature(ast.name)
       result << format_steps(ast.background.steps)
       #prints scenarios
-      ast.scenarios.each do |scenario|
+      ast.each do |scenario|
         result << format_tags(scenario.tags)
         result << format_scenario(scenario.name)
-        result << format_steps(scenario.steps)
+        result << format_steps(scenario)
       end
       #creates a feature file named after the feature and writes result to the file (path is relative to home directory)
       result.strip!
@@ -32,10 +45,10 @@ module GherkinRuby
     end
 
     #prints steps
-    def format_steps(steps)
+    def format_steps(scenario)
       result = ''
-      if steps != []
-        steps.each do |step|
+      if scenario != []
+        scenario.each do |step|
           result << "    #{step.keyword} #{step.name}\n"
         end
         result << "\n"

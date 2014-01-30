@@ -7,14 +7,8 @@ module GherkinRuby
       ast = GherkinRuby::AST::FeatureGroup.new(feature_group_name,[])
       parser =  GherkinRuby::Parser.new
       Dir[path << '*.feature'].each do |file|
-        ast.features << parser.parse(File.read(file))
+        ast.features_and_feature_groups << parser.parse(File.read(file))
       end
-      ######
-      printer = GherkinRuby::Printer.new
-      ast.features.each do |feature|
-        printer.print(feature,"Documents/")
-      end
-      ######
       ast
     end
 

@@ -14,18 +14,22 @@ module GherkinRuby
     end
 
     class FeatureGroup < Node
-      attr_reader :name, :features
-      attr_writer :features
+      attr_reader :name, :features_and_feature_groups
+      attr_writer :features_and_feature_groups
 
       include Enumerable
 
-      def initialize(name, features=[])
+      def initialize(name, features_and_feature_groups=[])
         @name     = name
-        @features = features
+        @features_and_feature_groups = features_and_feature_groups
       end
 
       def each
-        @features.each
+        if block_given?
+          @features_and_feature_groups.each {|feature_or_feature_group| yield feature_or_feature_group}
+        else
+          @features_and_feature_groups.each
+        end
       end
     end
 
@@ -44,7 +48,11 @@ module GherkinRuby
       end
 
       def each
-        @scenarios.each
+        if block_given?
+          @scenarios.each {|scenario| yield scenario}
+        else
+          @scenarios.each
+        end
       end
     end
 
@@ -63,7 +71,11 @@ module GherkinRuby
       end
 
       def each
-        @steps.each
+        if block_given?
+          @steps.each {|step| yield step}
+        else
+          @steps.each
+        end
       end
     end
 
@@ -83,7 +95,11 @@ module GherkinRuby
       end
 
       def each
-        @steps.each
+        if block_given?
+          @steps.each {|step| yield step}
+        else
+          @steps.each
+        end
       end
     end
 
