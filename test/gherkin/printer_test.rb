@@ -9,9 +9,9 @@ module GherkinRuby
       parser = GherkinRuby::Parser.new
       printer = GherkinRuby::Printer.new
       ast = parser.parse(feature1)
-      path = 'Documents/'
+      path = 'temp/'
       printer.print_feature(ast, path)
-      @result = File.read(ENV['HOME'] + "/#{path}#{ast.name}.feature")
+      @result = File.read(path + "#{ast.name}.feature")
     end
 
     it 'prints a nice feature file' do
@@ -38,18 +38,18 @@ module GherkinRuby
 
   describe 'write AST(feature group as root node) object to directory' do
     before do
-      path = 'Documents/'
+      path = 'temp/'
       feature1 = File.read('fixtures/featurefile1.feature')
       feature2 = File.read('fixtures/featurefile2.feature')
       parser = GherkinRuby::Parser.new
       printer = GherkinRuby::Printer.new
-      feature_group1 = GherkinRuby::AST::FeatureGroup.new("Nested Nested Feature Group",
+      feature_group1 = GherkinRuby::AST::FeatureGroup.new('Nested Nested Feature Group',
                                                           features_and_feature_groups=[parser.parse(feature1),
                                                                                        parser.parse(feature2)])
-      feature_group2 = GherkinRuby::AST::FeatureGroup.new("Nested Feature Group",
+      feature_group2 = GherkinRuby::AST::FeatureGroup.new('Nested Feature Group',
                                                           features_and_feature_groups=[parser.parse(feature1),
                                                           feature_group1])
-      feature_group3 = GherkinRuby::AST::FeatureGroup.new("Feature Group",
+      feature_group3 = GherkinRuby::AST::FeatureGroup.new('Feature Group',
                                                           features_and_feature_groups=[parser.parse(feature1),
                                                                                        feature_group2])
 
@@ -58,15 +58,18 @@ module GherkinRuby
     end
 
     it 'prints the right folder structure' do
-      path = 'Documents/'
-      File.exist?(ENV['HOME'] + "/#{path}Feature Group").must_equal(true)
-      File.exists?(ENV['HOME'] + "/#{path}Feature Group/Serve coffee.feature").must_equal(true)
-      File.exist?(ENV['HOME'] + "/#{path}Feature Group/Nested Feature Group").must_equal(true)
-      File.exists?(ENV['HOME'] + "/#{path}Feature Group/Nested Feature Group/Serve coffee.feature").must_equal(true)
-      File.exist?(ENV['HOME'] + "/#{path}Feature Group/Nested Feature Group/Nested Nested Feature Group").must_equal(true)
-      File.exists?(ENV['HOME'] + "/#{path}Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve coffee.feature").must_equal(true)
-      File.exists?(ENV['HOME'] + "/#{path}Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve super coffee.feature").must_equal(true)
+      path = 'temp/'
+      File.exist?(path + 'Feature Group').must_equal(true)
+      File.exists?(path + 'Feature Group/Serve coffee.feature').must_equal(true)
+      File.exist?(path + 'Feature Group/Nested Feature Group').must_equal(true)
+      File.exists?(path + 'Feature Group/Nested Feature Group/Serve coffee.feature').must_equal(true)
+      File.exist?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group').must_equal(true)
+      File.exists?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve coffee.feature').must_equal(true)
+      File.exists?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve super coffee.feature').must_equal(true)
+      #Empty temp directory after test
+      FileUtils.rm_rf(Dir.glob('temp/*'))
     end
+
 
   end
 end

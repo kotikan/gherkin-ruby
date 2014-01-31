@@ -33,7 +33,7 @@ module GherkinRuby
         end
 
         it 'has a line' do
-          instance = node.new("Name")
+          instance = node.new('Name')
           instance.name.must_equal 'Name'
           instance.must_respond_to :line
         end
@@ -43,7 +43,7 @@ module GherkinRuby
     describe FeatureGroup do
       it 'is Enumerable' do
         elements = ['+foo', '+bar']
-        instance = FeatureGroup.new("features", elements)
+        instance = FeatureGroup.new('features', elements)
         instance.each.to_a.must_equal ['+foo', '+bar']
       end
     end
@@ -54,7 +54,7 @@ module GherkinRuby
         background = ['foo', 'bar']
         elements = ['+foo', '+bar']
 
-        instance = Feature.new("My feature", elements, tags, background )
+        instance = Feature.new('My feature', elements, tags, background )
         instance.tags.each.to_a.must_equal ['-foo', '-bar']
         instance.background.each.to_a.must_equal ['foo', 'bar']
         instance.each.to_a.must_equal ['+foo', '+bar']
@@ -70,14 +70,14 @@ module GherkinRuby
       end
 
       it 'is Enumerable' do
-        instance = Scenario.new("Name", @steps)
+        instance = Scenario.new('Name', @steps)
         instance.each.to_a.must_equal @steps
       end
 
       it 'has tags' do
         tags  = ['javascript', 'wip']
 
-        instance = Scenario.new("Name", @steps, tags)
+        instance = Scenario.new('Name', @steps, tags)
         instance.tags.must_equal tags
       end
     end
@@ -102,7 +102,7 @@ module GherkinRuby
       describe 'when there are background steps' do
         it 'records line' do
           instance = Background.new(@steps)
-          instance.pos("file", 3)
+          instance.pos('file', 3)
           instance.line.must_equal 3
         end
       end
@@ -121,8 +121,8 @@ module GherkinRuby
       end
 
       it 'has a line' do
-        instance = Step.new("Name", 'Given')
-        instance.pos("file", 2)
+        instance = Step.new('Name', 'Given')
+        instance.pos('file', 2)
         instance.name.must_equal 'Name'
         instance.keyword.must_equal 'Given'
         instance.line.must_equal 2

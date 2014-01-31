@@ -3,10 +3,10 @@
 module GherkinRuby
   class Printer
 
-    #
+    #creates a new directory for each feature group and prints the groups corresponding feature files
     def print_feature_group(ast, path)
       path << ast.name
-      FileUtils.mkdir_p(ENV['HOME'] + "/#{path}")
+      FileUtils.mkdir_p(path)
       ast.each do |feature_or_feature_group|
         if feature_or_feature_group.class.equal?(GherkinRuby::AST::FeatureGroup)
           print_feature_group(feature_or_feature_group,"#{path}/")
@@ -29,7 +29,7 @@ module GherkinRuby
       end
       #creates a feature file named after the feature and writes result to the file (path is relative to home directory)
       result.strip!
-      out_file = File.new(ENV['HOME'] + "/#{path}#{ast.name}.feature", 'w')
+      out_file = File.new(path + "#{ast.name}.feature", 'w')
       out_file.puts(result)
       out_file.close
     end
