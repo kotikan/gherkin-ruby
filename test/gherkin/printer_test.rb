@@ -5,13 +5,15 @@ require_relative '../test_helper'
 module GherkinRuby
   describe 'write AST(feature as root node) object to directory' do
     before do
-      feature1 = File.read('fixtures/featurefile1.feature')
+      feature1 = IO.read(File.dirname(__FILE__) + '/fixtures/serve_coffee.feature')
+
       parser = GherkinRuby::Parser.new
       printer = GherkinRuby::Printer.new
+
       ast = parser.parse(feature1)
-      path = 'temp/'
-      printer.print_feature(ast, path)
-      @result = File.read(path + "#{ast.name}.feature")
+      printer.print_feature(ast, 'temp/')
+
+      @result = IO.read('temp/serve_coffee.feature')
     end
 
     it 'prints a nice feature file' do
@@ -39,8 +41,8 @@ module GherkinRuby
   describe 'write AST(feature group as root node) object to directory' do
     before do
       path = 'temp/'
-      feature1 = File.read('fixtures/featurefile1.feature')
-      feature2 = File.read('fixtures/featurefile2.feature')
+      feature1 =IO.read(File.dirname(__FILE__) + '/fixtures/serve_coffee.feature')
+      feature2 = IO.read(File.dirname(__FILE__) + '/fixtures/serve_super_coffee.feature')
       parser = GherkinRuby::Parser.new
       printer = GherkinRuby::Printer.new
       feature_group1 = GherkinRuby::AST::FeatureGroup.new('Nested Nested Feature Group',
