@@ -59,13 +59,13 @@ module GherkinRuby
 
     it 'prints the right folder structure' do
       path = 'temp/'
-      File.exist?(path + 'Feature Group').must_equal(true)
-      File.exists?(path + 'Feature Group/Serve coffee.feature').must_equal(true)
-      File.exist?(path + 'Feature Group/Nested Feature Group').must_equal(true)
-      File.exists?(path + 'Feature Group/Nested Feature Group/Serve coffee.feature').must_equal(true)
-      File.exist?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group').must_equal(true)
-      File.exists?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve coffee.feature').must_equal(true)
-      File.exists?(path + 'Feature Group/Nested Feature Group/Nested Nested Feature Group/Serve super coffee.feature').must_equal(true)
+      File.exist?(path + 'feature_group').must_equal(true)
+      File.exists?(path + 'feature_group/serve_coffee.feature').must_equal(true)
+      File.exist?(path + 'feature_group/nested_feature_group').must_equal(true)
+      File.exists?(path + 'feature_group/nested_feature_group/serve_coffee.feature').must_equal(true)
+      File.exist?(path + 'feature_group/nested_feature_group/nested_nested_feature_group').must_equal(true)
+      File.exists?(path + 'feature_group/nested_feature_group/nested_nested_feature_group/serve_coffee.feature').must_equal(true)
+      File.exists?(path + 'feature_group/nested_feature_group/nested_nested_feature_group/serve_super_coffee.feature').must_equal(true)
       #Empty temp directory after test
       FileUtils.rm_rf(Dir.glob('temp/*'))
     end

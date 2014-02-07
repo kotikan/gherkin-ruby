@@ -3,9 +3,14 @@
 module GherkinRuby
   class Printer
 
+    def convert_to_fs_name(name)
+      name.downcase.gsub(/\s/, '_')
+    end
+
     #creates a new directory for each feature group and prints the groups corresponding feature files
     def print_feature_group(ast, path)
-      path << ast.name
+
+      path << convert_to_fs_name(ast.name)
       FileUtils.mkdir_p(path)
       ast.each do |feature_or_feature_group|
         if feature_or_feature_group.class.equal?(GherkinRuby::AST::FeatureGroup)
@@ -29,7 +34,7 @@ module GherkinRuby
       end
       #creates a feature file named after the feature and writes result to the file (path is relative to home directory)
       result.strip!
-      out_file = File.new(path + "#{ast.name}.feature", 'w')
+      out_file = File.new(path + "#{convert_to_fs_name(ast.name)}.feature", 'w')
       out_file.puts(result)
       out_file.close
     end
