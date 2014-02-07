@@ -17,7 +17,8 @@ module GherkinRuby
     end
 
     it 'prints a nice feature file' do
-      @result.must_equal( """Feature: Serve coffee
+      @result.must_equal('
+Feature: Serve coffee
 
   Background:
     Given coffee
@@ -34,7 +35,7 @@ module GherkinRuby
     And I have deposited 1$
     When I press the coffee button
     Then I should be served a coffee
-""")
+')
     end
   end
 
