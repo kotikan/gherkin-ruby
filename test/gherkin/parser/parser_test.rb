@@ -110,6 +110,28 @@ Feature: Do something
         doc_string[1].must_equal('how exciting!')
       end
 
+      it 'parses feature with a scenario containing a table' do
+        feature = parse("""
+Feature: Do something
+
+  Scenario: Foo bar baz
+    Given blah foo bar
+    Then something else
+      | r1 c1 | r2 c1 |
+      | r1 c2 | r2 c2 |
+""")
+        scenarios = feature.scenarios
+
+        table = scenarios.first.steps.last.table
+        table.size.must_equal 2
+        table[0].size.must_equal 2
+        table[1].size.must_equal 2
+        table[0][0].must_equal 'r1 c1'
+        table[0][1].must_equal 'r2 c1'
+        table[1][0].must_equal 'r1 c2'
+        table[1][1].must_equal 'r2 c2'
+      end
+
       it 'parses feature with no ending newline' do
         feature = parse(%(
 Feature: Do something

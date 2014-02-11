@@ -8,6 +8,7 @@ token FEATURE BACKGROUND SCENARIO
 token TAG
 token GIVEN WHEN THEN AND BUT
 token DOC_STRING_START DOC_STRING_LINE DOC_STRING_END
+token TABLE_ROW_START TABLE_CELL
 token TEXT
 
 rule
@@ -68,6 +69,8 @@ rule
   | Step Newline                    { result = [val[0]] }
   | Step Newline DocString          { val[0].doc_string = val[2]; result = [val[0]] }
   | Step Newline DocString Newline  { val[0].doc_string = val[2]; result = [val[0]] }
+  | Step Newline Table              { val[0].table = val[2]; result = [val[0]] }
+  | Step Newline Table Newline      { val[0].table = val[2]; result = [val[0]] }
   | Step Newline Steps              { val[2].unshift(val[0]); result = val[2] }
   ;
 
@@ -86,6 +89,20 @@ rule
   DocStringLines:
     DOC_STRING_LINE                         { result = [val[0]] }
   | DocStringLines Newline DOC_STRING_LINE  { result = val[0] << val[2] }
+  ;
+
+  Table:
+    TableRow { result = [val[0]] }
+  | Table Newline TableRow { val[0] << val[2]; result = val[0] }
+  ;
+
+  TableRow:
+    TABLE_ROW_START TableCells { result = val[1] }
+  ;
+
+  TableCells:
+    TABLE_CELL              { result = [val[0]] }
+  | TableCells TABLE_CELL   { result = val[0] << val[1] }
   ;
 
   Scenarios:
