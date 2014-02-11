@@ -7,6 +7,7 @@ token NEWLINE
 token FEATURE BACKGROUND SCENARIO
 token TAG
 token GIVEN WHEN THEN AND BUT
+token DOC_STRING_START DOC_STRING_LINE DOC_STRING_END
 token TEXT
 
 rule
@@ -63,17 +64,28 @@ rule
   ;
 
   Steps:
-    Step                  { result = [val[0]] }
-  | Step Newline          { result = [val[0]] }
-  | Step Newline Steps    { val[2].unshift(val[0]); result = val[2] }
+    Step                            { result = [val[0]] }
+  | Step Newline                    { result = [val[0]] }
+  | Step Newline DocString          { val[0].doc_string = val[2]; result = [val[0]] }
+  | Step Newline DocString Newline  { val[0].doc_string = val[2]; result = [val[0]] }
+  | Step Newline Steps              { val[2].unshift(val[0]); result = val[2] }
   ;
 
   Step:
-    Keyword TEXT          { result = AST::Step.new(val[1], val[0]); result.pos(filename, lineno) }
+    Keyword TEXT            { result = AST::Step.new(val[1], val[0]); result.pos(filename, lineno) }
   ;
 
   Keyword:
     GIVEN | WHEN | THEN | AND | BUT
+  ;
+
+  DocString:
+    DOC_STRING_START Newline DocStringLines Newline DOC_STRING_END { result = val[2] }
+  ;
+
+  DocStringLines:
+    DOC_STRING_LINE                         { result = [val[0]] }
+  | DocStringLines Newline DOC_STRING_LINE  { result = val[0] << val[2] }
   ;
 
   Scenarios:

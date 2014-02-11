@@ -89,6 +89,27 @@ Feature: Do something
         last_scenario.steps.last.name.must_equal "something else"
       end
 
+      it 'parses feature with a scenario containing a doc string' do
+        feature = parse("""
+Feature: Do something
+
+  Scenario: Foo bar baz
+    Given blah foo bar
+    Then something else
+    #{'"""'}
+    with a doc string
+    how exciting!
+    #{'"""'}
+""")
+        scenarios = feature.scenarios
+
+        first_scenario = scenarios.first
+
+        doc_string = first_scenario.steps[1].doc_string
+        doc_string[0].must_equal('with a doc string')
+        doc_string[1].must_equal('how exciting!')
+      end
+
       it 'parses feature with no ending newline' do
         feature = parse(%(
 Feature: Do something
