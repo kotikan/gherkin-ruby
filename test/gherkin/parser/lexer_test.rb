@@ -41,5 +41,11 @@ module GherkinRuby
         end
       end
     end
+
+    describe 'Table' do
+      it 'parses tables' do
+        @lexer.tokenize("| r1 c1 | r1 c2 |\n| r2 c1 | r2 c2 |").must_equal [[:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r1 c1'], [:TABLE_CELL, 'r1 c2'], [:NEWLINE, "\n"], [:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r2 c1'], [:TABLE_CELL, 'r2 c2']]
+      end
+    end
   end
 end

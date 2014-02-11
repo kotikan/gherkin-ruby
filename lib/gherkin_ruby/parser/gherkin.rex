@@ -3,33 +3,40 @@
 class GherkinRuby::Parser
 
 macro
-  BLANK         [\ \t]+
+  BLANK     [\ \t]+
+  TABLE_SEP \|
 
 rule
   # Whitespace
-  {BLANK}       # no action
-  \#.*$
+            {BLANK}         # no action
+            \#.*$
 
   # Literals
-  \n                                    { [:NEWLINE, text] }
+            \n              { [:NEWLINE, text] }
 
   # Keywords
-  Feature:                              { [:FEATURE, text[0..-2]] }
-  Background:                           { [:BACKGROUND, text[0..-2]] }
-  Scenario:                             { [:SCENARIO, text[0..-2]] }
+            Feature:        { [:FEATURE, text[0..-2]] }
+            Background:     { [:BACKGROUND, text[0..-2]] }
+            Scenario:       { [:SCENARIO, text[0..-2]] }
 
   # Tags
-  @(\w|-)+                              { [:TAG, text[1..-1]] }
+            @(\w|-)+        { [:TAG, text[1..-1]] }
 
   # Step keywords
-  Given                                 { [:GIVEN, text] }
-  When                                  { [:WHEN, text] }
-  Then                                  { [:THEN, text] }
-  And                                   { [:AND, text] }
-  But                                   { [:BUT, text] }
+            Given           { [:GIVEN, text] }
+            When            { [:WHEN, text] }
+            Then            { [:THEN, text] }
+            And             { [:AND, text] }
+            But             { [:BUT, text] }
+
+  # Tables
+            {TABLE_SEP}     { @state = :TABLE ; [:TABLE_ROW_START, text] }
+  :TABLE    {TABLE_SEP}
+  :TABLE    (?=[#\n])       { @state = nil }
+  :TABLE    [^#\n\|]*       { [:TABLE_CELL, text.strip] }
 
   # Text
-  [^#\n]*                               { [:TEXT, text.strip] }
+            [^#\n]*         { [:TEXT, text.strip] }
 
 inner
   def tokenize(code)
