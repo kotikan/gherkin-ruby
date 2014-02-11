@@ -37,9 +37,10 @@ rule
   :TABLE    [^#\n\|]*       { [:TABLE_CELL, text.strip] }
 
   # Doc strings
-            {DOCSTR_SEP}    { @state = :DOCSTR ; [:DOC_STRING_START, text] }
-  :DOCSTR   {DOCSTR_SEP}    { @state = nil ; [:DOC_STRING_END, text] }
-  :DOCSTR   [\s\S]*(?={DOCSTR_SEP}) { [:DOC_STRING, text] }
+            {DOCSTR_SEP}            { @state = :DOCSTR ; [:DOC_STRING_START, text] }
+  :DOCSTR   \n                      { [:NEWLINE, text] }
+  :DOCSTR   {DOCSTR_SEP}            { @state = nil ; [:DOC_STRING_END, text] }
+  :DOCSTR   [^\n{DOCSTR_SEP}]*      { [:DOC_STRING_LINE, text] }
 
   # Text
             [^#\n]*         { [:TEXT, text.strip] }

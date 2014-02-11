@@ -50,7 +50,7 @@ module GherkinRuby
 
     describe 'Doc strings' do
       it 'parses doc strings' do
-        @lexer.tokenize("#{'"""'}A doc-string\nSpanning multiple lines#{'"""'}").must_equal [[:DOC_STRING_START, '"""'], [:DOC_STRING, "A doc-string\nSpanning multiple lines"], [:DOC_STRING_END, '"""']]
+        @lexer.tokenize("#{'"""'}A doc-string\nSpanning multiple lines#{'"""'}").must_equal [[:DOC_STRING_START, '"""'], [:DOC_STRING_LINE, 'A doc-string'], [:NEWLINE, "\n"], [:DOC_STRING_LINE, 'Spanning multiple lines'], [:DOC_STRING_END, '"""']]
       end
     end
 

@@ -127,11 +127,14 @@ class GherkinRuby::Parser < Racc::Parser
 
     when :DOCSTR
       case
+      when (text = @ss.scan(/\n/))
+         action { [:NEWLINE, text] }
+
       when (text = @ss.scan(/"{3}/))
          action { @state = nil ; [:DOC_STRING_END, text] }
 
-      when (text = @ss.scan(/[\s\S]*(?="{3})/))
-         action { [:DOC_STRING, text] }
+      when (text = @ss.scan(/[^"{3}\n]*/))
+         action { [:DOC_STRING_LINE, text] }
 
       else
         text = @ss.string[@ss.pos .. -1]
