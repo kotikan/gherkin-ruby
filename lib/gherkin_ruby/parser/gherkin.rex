@@ -3,8 +3,9 @@
 class GherkinRuby::Parser
 
 macro
-  BLANK     [\ \t]+
-  TABLE_SEP \|
+  BLANK         [\ \t]+
+  TABLE_SEP     \|
+  DOCSTR_SEP    "{3}
 
 rule
   # Whitespace
@@ -34,6 +35,11 @@ rule
   :TABLE    {TABLE_SEP}
   :TABLE    (?=[#\n])       { @state = nil }
   :TABLE    [^#\n\|]*       { [:TABLE_CELL, text.strip] }
+
+  # Doc strings
+            {DOCSTR_SEP}    { @state = :DOCSTR ; [:DOC_STRING_START, text] }
+  :DOCSTR   {DOCSTR_SEP}    { @state = nil ; [:DOC_STRING_END, text] }
+  :DOCSTR   [\s\S]*(?={DOCSTR_SEP}) { [:DOC_STRING, text] }
 
   # Text
             [^#\n]*         { [:TEXT, text.strip] }

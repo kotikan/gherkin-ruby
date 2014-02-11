@@ -98,6 +98,9 @@ class GherkinRuby::Parser < Racc::Parser
       when (text = @ss.scan(/\|/))
          action { @state = :TABLE ; [:TABLE_ROW_START, text] }
 
+      when (text = @ss.scan(/"{3}/))
+         action { @state = :DOCSTR ; [:DOC_STRING_START, text] }
+
       when (text = @ss.scan(/[^#\n]*/))
          action { [:TEXT, text.strip] }
 
@@ -116,6 +119,19 @@ class GherkinRuby::Parser < Racc::Parser
 
       when (text = @ss.scan(/[^#\n\|]*/))
          action { [:TABLE_CELL, text.strip] }
+
+      else
+        text = @ss.string[@ss.pos .. -1]
+        raise  ScanError, "can not match: '" + text + "'"
+      end  # if
+
+    when :DOCSTR
+      case
+      when (text = @ss.scan(/"{3}/))
+         action { @state = nil ; [:DOC_STRING_END, text] }
+
+      when (text = @ss.scan(/[\s\S]*(?="{3})/))
+         action { [:DOC_STRING, text] }
 
       else
         text = @ss.string[@ss.pos .. -1]
