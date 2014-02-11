@@ -104,12 +104,13 @@ module GherkinRuby
     end
 
     class Step < Node
-      attr_reader :name, :keyword, :doc_string, :table
-      def initialize(name, keyword, doc_string=nil, table=nil)
+      attr_reader :name, :keyword
+      attr_accessor :doc_string, :table
+      def initialize(name, keyword)
         @name    = name.to_s
         @keyword = keyword.to_s
-        @doc_string = doc_string.to_s
-        @table = table.to_a
+        @doc_string = nil
+        @table = nil
       end
     end
 

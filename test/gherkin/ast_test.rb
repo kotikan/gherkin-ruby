@@ -129,12 +129,14 @@ module GherkinRuby
       end
 
       it 'has a doc string' do
-        instance = Step.new('Name', 'Given', "Multiline\ndoc string")
+        instance = Step.new('Name', 'Given')
+        instance.doc_string = "Multiline\ndoc string"
         instance.doc_string.must_equal "Multiline\ndoc string"
       end
 
       it 'has a table' do
-        instance = Step.new('Name', 'Given', nil, [['r1 c1', 'r1 c2'], ['r2 c1', 'r2 c2']])
+        instance = Step.new('Name', 'Given')
+        instance.table = [['r1 c1', 'r1 c2'], ['r2 c1', 'r2 c2']]
         instance.table[0][0].must_equal 'r1 c1'
         instance.table[0][1].must_equal 'r1 c2'
         instance.table[1][0].must_equal 'r2 c1'
