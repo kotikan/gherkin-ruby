@@ -328,14 +328,14 @@ module_eval(<<'.,.,', 'gherkin.y', 49)
 
 module_eval(<<'.,.,', 'gherkin.y', 53)
   def _reduce_16(val, _values, result)
-     result = val[0] 
+     result = [val[0]] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 54)
   def _reduce_17(val, _values, result)
-     result = val[0...-1].flatten 
+     result = val[0] << val[1] 
     result
   end
 .,.,

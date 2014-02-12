@@ -51,8 +51,8 @@ rule
   ;
 
   Description:
-    TEXT Newline             { result = val[0] }
-  | Description TEXT Newline { result = val[0...-1].flatten }
+    TEXT Newline             { result = [val[0]] }
+  | Description TEXT Newline { result = val[0] << val[1] }
   ;
 
   Background:
