@@ -82,6 +82,32 @@ module GherkinRuby
       end
     end
 
+    describe ScenarioOutline do
+      before do
+        @steps = [
+            OpenStruct.new(line: 4),
+            OpenStruct.new(line: 5),
+        ]
+        @examples = [['r1 c1', 'r1 c2'], ['r2 c1', 'r2 c2']]
+      end
+
+      it 'is Enumerable' do
+        instance = ScenarioOutline.new('Name', @steps, @examples)
+        instance.each.to_a.must_equal @steps
+        instance.examples[0][0].must_equal 'r1 c1'
+        instance.examples[0][1].must_equal 'r1 c2'
+        instance.examples[1][0].must_equal 'r2 c1'
+        instance.examples[1][1].must_equal 'r2 c2'
+      end
+
+      it 'has tags' do
+        tags  = ['javascript', 'wip']
+
+        instance = ScenarioOutline.new('Name', @steps, @examples, tags)
+        instance.tags.must_equal tags
+      end
+    end
+
     describe Background do
       before do
         @steps = [

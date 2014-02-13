@@ -103,6 +103,18 @@ module GherkinRuby
       end
     end
 
+    class ScenarioOutline < Scenario
+      attr_reader :examples
+
+      include Enumerable
+
+      def initialize(name, steps=[], examples=[[]], tags=[])
+        super name, steps, tags
+
+        @examples = examples
+      end
+    end
+
     class Step < Node
       attr_reader :name, :keyword
       attr_accessor :doc_string, :table
