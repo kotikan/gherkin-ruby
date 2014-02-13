@@ -20,9 +20,12 @@ module GherkinRuby
     Then something cooler happens
 
   @javascript @wip #@destroy
-  Scenario: something else happens
-    Given foo
-    Then bar
+  Scenario Outline: something else happens
+    Given a <foo>
+    Then <bar>
+    Examples:
+      | foo              | bar                |
+      | scenario outline | cool stuff happens |
 """
 
       parser  = GherkinRuby::Parser.new
@@ -59,7 +62,7 @@ module GherkinRuby
       first_scenario.steps.last.line.must_equal 15
 
       last_scenario = @result.scenarios.last
-      last_scenario.must_be_kind_of AST::Scenario
+      last_scenario.must_be_kind_of AST::ScenarioOutline
       last_scenario.line.must_equal 18
       last_scenario.name.must_equal 'something else happens'
 
@@ -67,11 +70,12 @@ module GherkinRuby
       last_scenario.tags.last.name.must_equal 'wip'
 
       last_scenario.steps.first.keyword.must_equal 'Given'
-      last_scenario.steps.first.name.must_equal 'foo'
+      last_scenario.steps.first.name.must_equal 'a <foo>'
       last_scenario.steps.first.line.must_equal 19
       last_scenario.steps.last.keyword.must_equal 'Then'
-      last_scenario.steps.last.name.must_equal 'bar'
+      last_scenario.steps.last.name.must_equal '<bar>'
       last_scenario.steps.last.line.must_equal 20
+      last_scenario.examples.must_equal [['foo', 'bar'], ['scenario outline', 'cool stuff happens']]
     end
   end
 end
