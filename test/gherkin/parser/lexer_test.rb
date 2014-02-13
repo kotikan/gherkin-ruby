@@ -42,16 +42,16 @@ module GherkinRuby
       end
     end
 
-    describe 'Tables' do
-      it 'parses tables' do
-        @lexer.tokenize("| r1 c1 | r1 c2 |\n| r2 c1 | r2 c2 |").must_equal [[:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r1 c1'], [:TABLE_CELL, 'r1 c2'], [:NEWLINE, "\n"], [:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r2 c1'], [:TABLE_CELL, 'r2 c2']]
-      end
+    it 'parses tables' do
+      @lexer.tokenize("| r1 c1 | r1 c2 |\n| r2 c1 | r2 c2 |").must_equal [[:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r1 c1'], [:TABLE_CELL, 'r1 c2'], [:NEWLINE, "\n"], [:TABLE_ROW_START, '|'], [:TABLE_CELL, 'r2 c1'], [:TABLE_CELL, 'r2 c2']]
     end
 
-    describe 'Doc strings' do
-      it 'parses doc strings' do
-        @lexer.tokenize("#{'"""'}A doc-string\nSpanning multiple lines#{'"""'}").must_equal [[:DOC_STRING_START, '"""'], [:DOC_STRING_LINE, 'A doc-string'], [:NEWLINE, "\n"], [:DOC_STRING_LINE, 'Spanning multiple lines'], [:DOC_STRING_END, '"""']]
-      end
+    it 'parses doc strings' do
+      @lexer.tokenize("#{'"""'}A doc-string\nSpanning multiple lines#{'"""'}").must_equal [[:DOC_STRING_START, '"""'], [:DOC_STRING_LINE, 'A doc-string'], [:NEWLINE, "\n"], [:DOC_STRING_LINE, 'Spanning multiple lines'], [:DOC_STRING_END, '"""']]
+    end
+
+    it 'parses scenario outlines' do
+      @lexer.tokenize('Scenario Outline:').must_equal [[:OUTLINE, 'Scenario Outline']]
     end
 
   end

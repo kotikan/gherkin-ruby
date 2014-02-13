@@ -77,6 +77,12 @@ class GherkinRuby::Parser < Racc::Parser
       when (text = @ss.scan(/Scenario:/))
          action { [:SCENARIO, text[0..-2]] }
 
+      when (text = @ss.scan(/Scenario[ \t]+Outline:/))
+         action { [:OUTLINE, text[0..-2]] }
+
+      when (text = @ss.scan(/Examples:/))
+         action { [:EXAMPLES, text[0..-2]] }
+
       when (text = @ss.scan(/@(\w|-)+/))
          action { [:TAG, text[1..-1]] }
 

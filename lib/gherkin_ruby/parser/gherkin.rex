@@ -16,9 +16,11 @@ rule
             \n              { [:NEWLINE, text] }
 
   # Keywords
-            Feature:        { [:FEATURE, text[0..-2]] }
-            Background:     { [:BACKGROUND, text[0..-2]] }
-            Scenario:       { [:SCENARIO, text[0..-2]] }
+            Feature:            { [:FEATURE, text[0..-2]] }
+            Background:         { [:BACKGROUND, text[0..-2]] }
+            Scenario:           { [:SCENARIO, text[0..-2]] }
+            Scenario{BLANK}Outline:   { [:OUTLINE, text[0..-2]] }
+            Examples:           { [:EXAMPLES, text[0..-2]] }
 
   # Tags
             @(\w|-)+        { [:TAG, text[1..-1]] }
