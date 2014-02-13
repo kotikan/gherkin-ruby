@@ -17,8 +17,7 @@ module GherkinRuby
     end
 
     it 'prints a nice feature file' do
-      @result.must_equal('
-Feature: Serve coffee
+      @result.must_equal('Feature: Serve coffee
 
   Background:
     Given coffee
