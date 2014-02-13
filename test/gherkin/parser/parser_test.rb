@@ -170,6 +170,31 @@ Feature: Do something
         last_scenario.tags[1].name.must_equal "wip"
         last_scenario.tags[2].name.must_equal "with-vcr"
       end
+
+      it 'parses feature with scenario outlines' do
+        feature = parse("""
+Feature: Do something
+
+  Scenario Outline: Foo bar
+    Given <foo>
+    Then <bar>
+    Examples:
+      | foo | bar |
+      | baz | zab |
+""")
+        scenario_outline = feature.scenarios.first
+
+        scenario_outline.must_be_kind_of AST::ScenarioOutline
+        scenario_outline.name.must_equal "Foo bar"
+        table = scenario_outline.examples
+        table.size.must_equal 2
+        table[0].size.must_equal 2
+        table[1].size.must_equal 2
+        table[0][0].must_equal 'foo'
+        table[0][1].must_equal 'bar'
+        table[1][0].must_equal 'baz'
+        table[1][1].must_equal 'zab'
+      end
     end
   end
 end

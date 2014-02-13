@@ -4,7 +4,7 @@ class GherkinRuby::Parser
 
 # Declare tokens produced by the lexer
 token NEWLINE
-token FEATURE BACKGROUND SCENARIO
+token FEATURE BACKGROUND SCENARIO OUTLINE EXAMPLES
 token TAG
 token GIVEN WHEN THEN AND BUT
 token DOC_STRING_START DOC_STRING_LINE DOC_STRING_END
@@ -111,11 +111,29 @@ rule
   ;
 
   Scenario:
+    SimpleScenario
+  | ScenarioOutline
+  ;
+
+  SimpleScenario:
     SCENARIO TEXT Newline
       Steps { result = AST::Scenario.new(val[1], val[3]); result.pos(filename, lineno - 1) }
   | Tags Newline
     SCENARIO TEXT Newline
       Steps { result = AST::Scenario.new(val[3], val[5], val[0]); result.pos(filename, lineno - 2) }
+  ;
+
+  ScenarioOutline:
+    OUTLINE TEXT Newline
+      Steps Examples { result = AST::ScenarioOutline.new(val[1], val[3], val[4]); result.pos(filename, lineno - 1) }
+  | Tags Newline
+      OUTLINE TEXT Newline
+      Steps Examples { result = AST::ScenarioOutline.new(val[3], val[5], val[6], val[0]); result.pos(filename, lineno - 2) }
+  ;
+
+  Examples:
+    EXAMPLES Newline
+      Table Newline { result = val[2] }
   ;
 
   Tags:
