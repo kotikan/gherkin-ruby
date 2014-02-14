@@ -169,5 +169,23 @@ module GherkinRuby
         instance.table[1][1].must_equal 'r2 c2'
       end
     end
+
+    describe ExamplesTable do
+      before do
+        @rows = [
+            OpenStruct.new(line: 4),
+            OpenStruct.new(line: 5),
+        ]
+      end
+
+      it 'is a Node' do
+        ExamplesTable.ancestors.must_include Node
+      end
+
+      it 'is enumerable' do
+        instance = ExamplesTable.new(@rows)
+        instance.each.to_a.must_equal @rows
+      end
+    end
   end
 end

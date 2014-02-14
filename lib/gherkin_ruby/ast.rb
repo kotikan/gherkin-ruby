@@ -132,5 +132,27 @@ module GherkinRuby
         @name = name
       end
     end
+
+    class ExamplesTable < Node
+      attr_writer :rows
+
+      include Enumerable
+
+      def initialize(rows=[])
+        @rows = rows
+      end
+
+      def line
+        @rows.first.line - 1 if @rows.any?
+      end
+
+      def each
+        if block_given?
+          @rows.each { |row| yield row }
+        else
+          @rows.each
+        end
+      end
+    end
   end
 end
