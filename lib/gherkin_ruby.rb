@@ -1,7 +1,7 @@
 require_relative 'gherkin_ruby/version'
 require_relative 'gherkin_ruby/ast'
 require_relative 'gherkin_ruby/parser'
-require_relative 'gherkin_ruby/printer'
+require_relative 'gherkin_ruby/printing_visitor'
 require_relative 'gherkin_ruby/folder_parser'
 
 module GherkinRuby
@@ -10,9 +10,9 @@ module GherkinRuby
     parser.parse(input)
   end
 
-  def self.print(ast,path)
-    printer = Printer.new
-    printer.print_feature(ast, path)
+  def self.print(ast, path)
+    printer = PrintingVisitor.new(path)
+    printer.visit(ast)
   end
 
   def self.parse_folder(path,feature_group_name)
