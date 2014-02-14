@@ -108,7 +108,7 @@ module GherkinRuby
 
       include Enumerable
 
-      def initialize(name, steps=[], examples=[[]], tags=[])
+      def initialize(name, steps=[], examples=[], tags=[])
         super name, steps, tags
 
         @examples = examples
@@ -151,6 +151,24 @@ module GherkinRuby
           @rows.each { |row| yield row }
         else
           @rows.each
+        end
+      end
+    end
+
+    class TableRow < Node
+      attr_writer :cells
+
+      include Enumerable
+
+      def initialize(cells=[])
+        @cells = cells
+      end
+
+      def each
+        if block_given?
+          @cells.each { |cell| yield cell }
+        else
+          @cells.each
         end
       end
     end

@@ -88,16 +88,11 @@ module GherkinRuby
             OpenStruct.new(line: 4),
             OpenStruct.new(line: 5),
         ]
-        @examples = [['r1 c1', 'r1 c2'], ['r2 c1', 'r2 c2']]
       end
 
       it 'is Enumerable' do
         instance = ScenarioOutline.new('Name', @steps, @examples)
         instance.each.to_a.must_equal @steps
-        instance.examples[0][0].must_equal 'r1 c1'
-        instance.examples[0][1].must_equal 'r1 c2'
-        instance.examples[1][0].must_equal 'r2 c1'
-        instance.examples[1][1].must_equal 'r2 c2'
       end
 
       it 'has tags' do
@@ -185,6 +180,24 @@ module GherkinRuby
       it 'is enumerable' do
         instance = ExamplesTable.new(@rows)
         instance.each.to_a.must_equal @rows
+      end
+    end
+
+    describe TableRow do
+      before do
+        @cells = [
+            OpenStruct.new(line: 4),
+            OpenStruct.new(line: 5),
+        ]
+      end
+
+      it 'is a Node' do
+        TableRow.ancestors.must_include Node
+      end
+
+      it 'is enumerable' do
+        instance = TableRow.new(@cells)
+        instance.each.to_a.must_equal @cells
       end
     end
   end
