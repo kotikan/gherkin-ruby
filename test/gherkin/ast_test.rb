@@ -88,11 +88,20 @@ module GherkinRuby
             OpenStruct.new(line: 4),
             OpenStruct.new(line: 5),
         ]
+        @examples = [
+            OpenStruct.new(line: 9),
+            OpenStruct.new(line: 10),
+        ]
       end
 
       it 'is Enumerable' do
         instance = ScenarioOutline.new('Name', @steps, @examples)
         instance.each.to_a.must_equal @steps
+      end
+
+      it 'has an examples table' do
+        instance = ScenarioOutline.new('Name', @steps, @examples)
+        instance.examples.each.to_a.must_equal @examples
       end
 
       it 'has tags' do
