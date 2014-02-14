@@ -12,7 +12,7 @@ require 'racc/parser.rb'
 module GherkinRuby
   class Parser < Racc::Parser
 
-module_eval(<<'...end gherkin.y/module_eval...', 'gherkin.y', 151)
+module_eval(<<'...end gherkin.y/module_eval...', 'gherkin.y', 153)
 
   def parse(input)
     @yydebug = true if ENV['DEBUG_RACC']
@@ -61,15 +61,15 @@ racc_action_pointer = [
    107,   nil,   nil,   nil,   108,     6,     2,   nil,   nil ]
 
 racc_action_default = [
-   -52,   -52,    -1,   -52,    -5,   -52,    -7,    -9,   -11,   -52,
-   -50,   -52,    -2,   -41,   -43,   -44,   -52,   -52,   -52,    -3,
-   -52,    -6,    -8,   -52,   -51,   -10,   -52,   -52,   -12,   -14,
-    89,   -42,   -52,   -52,   -52,    -4,   -15,   -18,   -20,   -52,
-   -28,   -29,   -30,   -31,   -32,   -19,   -13,   -52,   -52,   -52,
-   -52,   -52,   -21,   -27,   -52,   -16,   -45,   -52,   -52,   -52,
-   -22,   -24,   -26,   -52,   -36,   -52,   -17,   -52,   -52,   -47,
-   -52,   -23,   -25,   -52,   -38,   -39,   -46,   -52,   -52,   -37,
-   -52,   -34,   -40,   -48,   -52,   -52,   -49,   -33,   -35 ]
+   -53,   -53,    -1,   -53,    -5,   -53,    -7,    -9,   -11,   -53,
+   -51,   -53,    -2,   -41,   -43,   -44,   -53,   -53,   -53,    -3,
+   -53,    -6,    -8,   -53,   -52,   -10,   -53,   -53,   -12,   -14,
+    89,   -42,   -53,   -53,   -53,    -4,   -15,   -18,   -20,   -53,
+   -28,   -29,   -30,   -31,   -32,   -19,   -13,   -53,   -53,   -53,
+   -53,   -53,   -21,   -27,   -53,   -16,   -45,   -53,   -53,   -53,
+   -22,   -24,   -26,   -53,   -36,   -53,   -17,   -53,   -53,   -47,
+   -53,   -23,   -25,   -53,   -38,   -39,   -46,   -53,   -53,   -37,
+   -53,   -34,   -40,   -48,   -49,   -53,   -50,   -33,   -35 ]
 
 racc_goto_table = [
      5,    31,    61,    20,    37,    69,    79,     6,    28,    26,
@@ -153,11 +153,12 @@ racc_reduce_table = [
   6, 41, :_reduce_46,
   5, 42, :_reduce_47,
   7, 42, :_reduce_48,
-  4, 43, :_reduce_49,
-  1, 26, :_reduce_50,
-  2, 26, :_reduce_51 ]
+  3, 43, :_reduce_49,
+  4, 43, :_reduce_50,
+  1, 26, :_reduce_51,
+  2, 26, :_reduce_52 ]
 
-racc_reduce_n = 52
+racc_reduce_n = 53
 
 racc_shift_n = 89
 
@@ -553,15 +554,22 @@ module_eval(<<'.,.,', 'gherkin.y', 135)
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 139)
+module_eval(<<'.,.,', 'gherkin.y', 137)
   def _reduce_50(val, _values, result)
+     result = val[2] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'gherkin.y', 141)
+  def _reduce_51(val, _values, result)
      result = [AST::Tag.new(val[0])] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 140)
-  def _reduce_51(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 142)
+  def _reduce_52(val, _values, result)
      result = val[0] << AST::Tag.new(val[1]) 
     result
   end

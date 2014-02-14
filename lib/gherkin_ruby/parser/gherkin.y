@@ -133,6 +133,8 @@ rule
 
   Examples:
     EXAMPLES Newline
+        Table { result = val[2] }
+  | EXAMPLES Newline
       Table Newline { result = val[2] }
   ;
 
