@@ -69,8 +69,12 @@ rule
   | Step Newline                    { result = [val[0]] }
   | Step Newline DocString          { val[0].doc_string = val[2]; result = [val[0]] }
   | Step Newline DocString Newline  { val[0].doc_string = val[2]; result = [val[0]] }
+  | Step Newline DocString Newline
+      Steps                         { val[0].doc_string = val[2]; val[4].unshift(val[0]); result = val[4] }
   | Step Newline Table              { val[0].table = val[2]; result = [val[0]] }
   | Step Newline Table Newline      { val[0].table = val[2]; result = [val[0]] }
+  | Step Newline Table Newline
+      Steps                         { val[0].table = val[2]; val[4].unshift(val[0]); result = val[4] }
   | Step Newline Steps              { val[2].unshift(val[0]); result = val[2] }
   ;
 

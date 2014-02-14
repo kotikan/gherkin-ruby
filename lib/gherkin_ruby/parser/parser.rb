@@ -12,7 +12,7 @@ require 'racc/parser.rb'
 module GherkinRuby
   class Parser < Racc::Parser
 
-module_eval(<<'...end gherkin.y/module_eval...', 'gherkin.y', 153)
+module_eval(<<'...end gherkin.y/module_eval...', 'gherkin.y', 157)
 
   def parse(input)
     @yydebug = true if ENV['DEBUG_RACC']
@@ -22,79 +22,83 @@ module_eval(<<'...end gherkin.y/module_eval...', 'gherkin.y', 153)
 ##### State transition tables begin ###
 
 racc_action_table = [
-    21,    21,    21,    21,    21,    21,    16,    18,    21,    10,
-    40,    41,    42,    43,    44,    63,    65,    47,    65,    65,
-    65,    88,    87,    21,    21,    21,    21,    23,    49,    50,
-    21,    40,    41,    42,    43,    44,    81,    40,    41,    42,
-    43,    44,    21,    16,    18,     4,    10,    21,    34,    40,
-    41,    42,    43,    44,    40,    41,    42,    43,    44,    21,
-    23,     4,     4,     9,     4,    10,    53,    24,    10,    40,
-    41,    42,    43,    44,    16,    18,    21,    10,    16,    18,
-    54,    10,     4,     9,    32,     4,    57,    58,    30,    29,
+    21,    21,    21,    21,    21,     4,     9,    21,    40,    41,
+    42,    43,    44,    63,    21,    83,    65,    47,    65,    65,
+    21,    40,    41,    42,    43,    44,     4,    21,    21,    65,
+    49,    50,    24,    90,    89,    40,    41,    42,    43,    44,
+    21,    16,    18,     4,    10,    21,     4,    40,    41,    42,
+    43,    44,    40,    41,    42,    43,    44,    21,    16,    18,
+    53,    10,    21,    21,    40,    41,    42,    43,    44,    40,
+    41,    42,    43,    44,    21,    23,     4,     9,    16,    18,
+    10,    10,    10,    40,    41,    42,    43,    44,    16,    18,
+    54,    10,    21,    23,    34,    32,    57,    58,     4,    30,
      4,     4,     4,     4,    70,     4,     4,     4,    75,    21,
-     4,    27,     4,    21,    24,    36,    82,    70,    24,     4,
+    29,     4,     4,    27,    24,    36,    84,    70,    24,     4,
      4,    11,     4 ]
 
 racc_action_check = [
-    28,    78,    55,    52,    86,    72,     2,     2,    85,     2,
-    52,    52,    52,    52,    52,    52,    78,    28,    52,    86,
-    72,    85,    85,    73,    67,    33,    20,    20,    33,    33,
-    48,    67,    67,    67,    67,    67,    73,    48,    48,    48,
-    48,    48,    51,    19,    19,    34,    19,    68,    18,    51,
-    51,    51,    51,    51,    68,    68,    68,    68,    68,     5,
-     5,    17,     0,     0,    38,     5,    39,    17,     0,    26,
-    26,    26,    26,    26,    35,    35,    45,    35,    12,    12,
-    46,    12,     3,     3,    16,    27,    49,    50,    11,     9,
-    54,    32,    57,    58,    59,    60,    61,    63,    65,    66,
-     8,     7,    70,    71,     6,    23,    74,    77,    22,    80,
-    84,     1,    47 ]
+    28,    52,    73,    78,    88,     3,     3,    55,    52,    52,
+    52,    52,    52,    52,    72,    73,    52,    28,    78,    88,
+    87,    72,    72,    72,    72,    72,    17,    33,    67,    72,
+    33,    33,    17,    87,    87,    67,    67,    67,    67,    67,
+    71,    35,    35,    32,    35,    48,    38,    71,    71,    71,
+    71,    71,    48,    48,    48,    48,    48,    51,     2,     2,
+    39,     2,    68,    45,    51,    51,    51,    51,    51,    68,
+    68,    68,    68,    68,     5,     5,     0,     0,    19,    19,
+     5,    19,     0,    26,    26,    26,    26,    26,    12,    12,
+    46,    12,    20,    20,    18,    16,    49,    50,    27,    11,
+    54,    34,    57,    58,    59,    60,    61,    63,    65,    66,
+     9,     8,    70,     7,     6,    23,    74,    77,    22,    82,
+    86,     1,    47 ]
 
 racc_action_pointer = [
-    60,   111,     1,    80,   nil,    57,    96,    97,    98,    70,
-   nil,    88,    73,   nil,   nil,   nil,    65,    59,    29,    38,
-    24,   nil,   100,    86,   nil,   nil,    60,    83,    -2,   nil,
-   nil,   nil,    89,    23,    43,    69,   nil,   nil,    62,    47,
-   nil,   nil,   nil,   nil,   nil,    74,    61,   110,    28,    67,
-    68,    40,     1,   nil,    88,     0,   nil,    90,    91,    87,
-    93,    94,   nil,    95,   nil,    80,    97,    22,    45,   nil,
-   100,   101,     3,    21,    88,   nil,   nil,   100,    -1,   nil,
-   107,   nil,   nil,   nil,   108,     6,     2,   nil,   nil ]
+    74,   121,    53,     3,   nil,    72,   106,   109,   109,    91,
+   nil,    99,    83,   nil,   nil,   nil,    76,    24,    75,    73,
+    90,   nil,   110,    96,   nil,   nil,    74,    96,    -2,   nil,
+   nil,   nil,    41,    25,    99,    36,   nil,   nil,    44,    41,
+   nil,   nil,   nil,   nil,   nil,    61,    71,   120,    43,    77,
+    78,    55,    -1,   nil,    98,     5,   nil,   100,   101,    97,
+   103,   104,   nil,   105,   nil,    90,   107,    26,    60,   nil,
+   110,    38,    12,     0,    98,   nil,   nil,   110,     1,   nil,
+   nil,   nil,   117,   nil,   nil,   nil,   118,    18,     2,   nil,
+   nil ]
 
 racc_action_default = [
-   -53,   -53,    -1,   -53,    -5,   -53,    -7,    -9,   -11,   -53,
-   -51,   -53,    -2,   -41,   -43,   -44,   -53,   -53,   -53,    -3,
-   -53,    -6,    -8,   -53,   -52,   -10,   -53,   -53,   -12,   -14,
-    89,   -42,   -53,   -53,   -53,    -4,   -15,   -18,   -20,   -53,
-   -28,   -29,   -30,   -31,   -32,   -19,   -13,   -53,   -53,   -53,
-   -53,   -53,   -21,   -27,   -53,   -16,   -45,   -53,   -53,   -53,
-   -22,   -24,   -26,   -53,   -36,   -53,   -17,   -53,   -53,   -47,
-   -53,   -23,   -25,   -53,   -38,   -39,   -46,   -53,   -53,   -37,
-   -53,   -34,   -40,   -48,   -49,   -53,   -50,   -33,   -35 ]
+   -55,   -55,    -1,   -55,    -5,   -55,    -7,    -9,   -11,   -55,
+   -53,   -55,    -2,   -43,   -45,   -46,   -55,   -55,   -55,    -3,
+   -55,    -6,    -8,   -55,   -54,   -10,   -55,   -55,   -12,   -14,
+    91,   -44,   -55,   -55,   -55,    -4,   -15,   -18,   -20,   -55,
+   -30,   -31,   -32,   -33,   -34,   -19,   -13,   -55,   -55,   -55,
+   -55,   -55,   -21,   -29,   -55,   -16,   -47,   -55,   -55,   -55,
+   -22,   -25,   -28,   -55,   -38,   -55,   -17,   -55,   -55,   -49,
+   -55,   -23,   -26,   -55,   -40,   -41,   -48,   -55,   -55,   -24,
+   -27,   -39,   -55,   -36,   -42,   -50,   -51,   -55,   -52,   -35,
+   -37 ]
 
 racc_goto_table = [
-     5,    31,    61,    20,    37,    69,    79,     6,    28,    26,
-     2,    60,    22,    19,    12,    46,    80,    33,    25,    74,
-    79,     3,     1,    83,    31,   nil,    56,    45,    84,    59,
+     5,    31,    61,    20,    37,    69,    81,     6,    28,    26,
+     2,    60,    22,    19,    12,    46,    82,    33,    25,    74,
+     3,     1,    81,    85,    31,   nil,    56,    45,    86,    59,
     62,    35,    48,   nil,    51,   nil,   nil,   nil,    52,   nil,
-   nil,   nil,   nil,   nil,   nil,    76,    77,    55,   nil,   nil,
-   nil,   nil,   nil,   nil,    66,   nil,   nil,    67,    68,   nil,
+   nil,   nil,   nil,   nil,   nil,    76,    77,    55,   nil,    79,
+    80,   nil,   nil,   nil,    66,   nil,   nil,    67,    68,   nil,
     71,    72,   nil,    73,   nil,   nil,   nil,   nil,   nil,   nil,
     78,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-    85,   nil,   nil,   nil,    86 ]
+   nil,   nil,    87,   nil,   nil,   nil,    88 ]
 
 racc_goto_check = [
      5,    20,    15,     5,    12,    23,    18,     6,     5,    11,
      2,    14,     6,     2,     3,    10,    17,     5,     8,    19,
-    18,     4,     1,    23,    20,   nil,    12,     5,    15,    12,
+     4,     1,    18,    23,    20,   nil,    12,     5,    15,    12,
     12,     3,     5,   nil,     5,   nil,   nil,   nil,     5,   nil,
-   nil,   nil,   nil,   nil,   nil,    12,    12,     5,   nil,   nil,
-   nil,   nil,   nil,   nil,     5,   nil,   nil,     5,     5,   nil,
+   nil,   nil,   nil,   nil,   nil,    12,    12,     5,   nil,    12,
+    12,   nil,   nil,   nil,     5,   nil,   nil,     5,     5,   nil,
      5,     5,   nil,     5,   nil,   nil,   nil,   nil,   nil,   nil,
      5,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-     5,   nil,   nil,   nil,     5 ]
+   nil,   nil,     5,   nil,   nil,   nil,     5 ]
 
 racc_goto_pointer = [
-   nil,    22,    10,    12,    21,     0,     7,   nil,    11,   nil,
+   nil,    21,    10,    12,    20,     0,     7,   nil,    11,   nil,
    -13,     2,   -22,   nil,   -41,   -50,   nil,   -57,   -66,   -46,
    -11,   nil,   nil,   -54 ]
 
@@ -128,39 +132,41 @@ racc_reduce_table = [
   2, 32, :_reduce_21,
   3, 32, :_reduce_22,
   4, 32, :_reduce_23,
-  3, 32, :_reduce_24,
-  4, 32, :_reduce_25,
-  3, 32, :_reduce_26,
-  2, 33, :_reduce_27,
+  5, 32, :_reduce_24,
+  3, 32, :_reduce_25,
+  4, 32, :_reduce_26,
+  5, 32, :_reduce_27,
+  3, 32, :_reduce_28,
+  2, 33, :_reduce_29,
   1, 36, :_reduce_none,
   1, 36, :_reduce_none,
   1, 36, :_reduce_none,
   1, 36, :_reduce_none,
   1, 36, :_reduce_none,
-  5, 34, :_reduce_33,
-  1, 37, :_reduce_34,
-  3, 37, :_reduce_35,
-  1, 35, :_reduce_36,
-  3, 35, :_reduce_37,
-  2, 38, :_reduce_38,
-  1, 39, :_reduce_39,
-  2, 39, :_reduce_40,
-  1, 23, :_reduce_41,
-  2, 23, :_reduce_42,
+  5, 34, :_reduce_35,
+  1, 37, :_reduce_36,
+  3, 37, :_reduce_37,
+  1, 35, :_reduce_38,
+  3, 35, :_reduce_39,
+  2, 38, :_reduce_40,
+  1, 39, :_reduce_41,
+  2, 39, :_reduce_42,
+  1, 23, :_reduce_43,
+  2, 23, :_reduce_44,
   1, 40, :_reduce_none,
   1, 40, :_reduce_none,
-  4, 41, :_reduce_45,
-  6, 41, :_reduce_46,
-  5, 42, :_reduce_47,
-  7, 42, :_reduce_48,
-  3, 43, :_reduce_49,
-  4, 43, :_reduce_50,
-  1, 26, :_reduce_51,
-  2, 26, :_reduce_52 ]
+  4, 41, :_reduce_47,
+  6, 41, :_reduce_48,
+  5, 42, :_reduce_49,
+  7, 42, :_reduce_50,
+  3, 43, :_reduce_51,
+  4, 43, :_reduce_52,
+  1, 26, :_reduce_53,
+  2, 26, :_reduce_54 ]
 
-racc_reduce_n = 53
+racc_reduce_n = 55
 
-racc_shift_n = 89
+racc_shift_n = 91
 
 racc_token_table = {
   false => 0,
@@ -407,37 +413,47 @@ module_eval(<<'.,.,', 'gherkin.y', 70)
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 71)
+module_eval(<<'.,.,', 'gherkin.y', 72)
   def _reduce_24(val, _values, result)
-     val[0].table = val[2]; result = [val[0]] 
+     val[0].doc_string = val[2]; val[4].unshift(val[0]); result = val[4] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 72)
+module_eval(<<'.,.,', 'gherkin.y', 73)
   def _reduce_25(val, _values, result)
      val[0].table = val[2]; result = [val[0]] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 73)
+module_eval(<<'.,.,', 'gherkin.y', 74)
   def _reduce_26(val, _values, result)
-     val[2].unshift(val[0]); result = val[2] 
+     val[0].table = val[2]; result = [val[0]] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'gherkin.y', 76)
+  def _reduce_27(val, _values, result)
+     val[0].table = val[2]; val[4].unshift(val[0]); result = val[4] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 77)
-  def _reduce_27(val, _values, result)
-     result = AST::Step.new(val[1], val[0]); result.pos(filename, lineno) 
+  def _reduce_28(val, _values, result)
+     val[2].unshift(val[0]); result = val[2] 
     result
   end
 .,.,
 
-# reduce 28 omitted
-
-# reduce 29 omitted
+module_eval(<<'.,.,', 'gherkin.y', 81)
+  def _reduce_29(val, _values, result)
+     result = AST::Step.new(val[1], val[0]); result.pos(filename, lineno) 
+    result
+  end
+.,.,
 
 # reduce 30 omitted
 
@@ -445,131 +461,135 @@ module_eval(<<'.,.,', 'gherkin.y', 77)
 
 # reduce 32 omitted
 
-module_eval(<<'.,.,', 'gherkin.y', 85)
-  def _reduce_33(val, _values, result)
+# reduce 33 omitted
+
+# reduce 34 omitted
+
+module_eval(<<'.,.,', 'gherkin.y', 89)
+  def _reduce_35(val, _values, result)
      result = val[2] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 89)
-  def _reduce_34(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 93)
+  def _reduce_36(val, _values, result)
      result = [val[0]] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'gherkin.y', 90)
-  def _reduce_35(val, _values, result)
-     result = val[0] << val[2] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 94)
-  def _reduce_36(val, _values, result)
+  def _reduce_37(val, _values, result)
+     result = val[0] << val[2] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'gherkin.y', 98)
+  def _reduce_38(val, _values, result)
      result = [AST::TableRow.new(val[0])] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 95)
-  def _reduce_37(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 99)
+  def _reduce_39(val, _values, result)
      val[0] << AST::TableRow.new(val[2]); result = val[0] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 99)
-  def _reduce_38(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 103)
+  def _reduce_40(val, _values, result)
      result = val[1] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 103)
-  def _reduce_39(val, _values, result)
-     result = [val[0]] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'gherkin.y', 104)
-  def _reduce_40(val, _values, result)
-     result = val[0] << val[1] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'gherkin.y', 108)
+module_eval(<<'.,.,', 'gherkin.y', 107)
   def _reduce_41(val, _values, result)
      result = [val[0]] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 109)
+module_eval(<<'.,.,', 'gherkin.y', 108)
   def _reduce_42(val, _values, result)
      result = val[0] << val[1] 
     result
   end
 .,.,
 
-# reduce 43 omitted
+module_eval(<<'.,.,', 'gherkin.y', 112)
+  def _reduce_43(val, _values, result)
+     result = [val[0]] 
+    result
+  end
+.,.,
 
-# reduce 44 omitted
+module_eval(<<'.,.,', 'gherkin.y', 113)
+  def _reduce_44(val, _values, result)
+     result = val[0] << val[1] 
+    result
+  end
+.,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 119)
-  def _reduce_45(val, _values, result)
+# reduce 45 omitted
+
+# reduce 46 omitted
+
+module_eval(<<'.,.,', 'gherkin.y', 123)
+  def _reduce_47(val, _values, result)
      result = AST::Scenario.new(val[1], val[3]); result.pos(filename, lineno - 1) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 122)
-  def _reduce_46(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 126)
+  def _reduce_48(val, _values, result)
      result = AST::Scenario.new(val[3], val[5], val[0]); result.pos(filename, lineno - 2) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 127)
-  def _reduce_47(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 131)
+  def _reduce_49(val, _values, result)
      result = AST::ScenarioOutline.new(val[1], val[3], val[4]); result.pos(filename, lineno - 1) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 130)
-  def _reduce_48(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 134)
+  def _reduce_50(val, _values, result)
      result = AST::ScenarioOutline.new(val[3], val[5], val[6], val[0]); result.pos(filename, lineno - 2) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 135)
-  def _reduce_49(val, _values, result)
-     result = AST::ExamplesTable.new(val[2]) 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'gherkin.y', 137)
-  def _reduce_50(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 139)
+  def _reduce_51(val, _values, result)
      result = AST::ExamplesTable.new(val[2]) 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 141)
-  def _reduce_51(val, _values, result)
+  def _reduce_52(val, _values, result)
+     result = AST::ExamplesTable.new(val[2]) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'gherkin.y', 145)
+  def _reduce_53(val, _values, result)
      result = [AST::Tag.new(val[0])] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'gherkin.y', 142)
-  def _reduce_52(val, _values, result)
+module_eval(<<'.,.,', 'gherkin.y', 146)
+  def _reduce_54(val, _values, result)
      result = val[0] << AST::Tag.new(val[1]) 
     result
   end

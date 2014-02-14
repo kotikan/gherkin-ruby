@@ -95,17 +95,17 @@ Feature: Do something
 
   Scenario: Foo bar baz
     Given blah foo bar
+      #{'"""'}
+      with a doc string
+      how exciting!
+      #{'"""'}
     Then something else
-    #{'"""'}
-    with a doc string
-    how exciting!
-    #{'"""'}
 """)
         scenarios = feature.scenarios
 
         first_scenario = scenarios.first
 
-        doc_string = first_scenario.steps[1].doc_string
+        doc_string = first_scenario.steps.first.doc_string
         doc_string[0].must_equal('with a doc string')
         doc_string[1].must_equal('how exciting!')
       end
@@ -116,13 +116,13 @@ Feature: Do something
 
   Scenario: Foo bar baz
     Given blah foo bar
-    Then something else
       | r1 c1 | r1 c2 |
       | r2 c1 | r2 c2 |
+    Then something else
 """)
         scenarios = feature.scenarios
 
-        rows = scenarios.first.steps.last.table
+        rows = scenarios.first.steps.first.table
         rows.size.must_equal 2
         rows[0].must_be_kind_of AST::TableRow
         rows[0].each.to_a.size.must_equal 2
