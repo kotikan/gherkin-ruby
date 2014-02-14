@@ -3,6 +3,10 @@
 module GherkinRuby
   class Printer
 
+    def create_feature_file(ast, path)
+      File.new(path + "#{convert_to_fs_name(ast.name)}.feature", 'w')
+    end
+
     def convert_to_fs_name(name)
       name.downcase.gsub(/\s/, '_')
     end
@@ -16,37 +20,38 @@ module GherkinRuby
         if feature_or_feature_group.class.equal?(GherkinRuby::AST::FeatureGroup)
           print_feature_group(feature_or_feature_group,"#{path}/")
         else
-          print_feature(feature_or_feature_group,"#{path}/")
+          file = create_feature_file(ast, path)
+          print_feature(feature_or_feature_group, file)
         end
       end
     end
 
     #creates a feature file in the supplied directory and writes the supplied AST(abstract syntax tree) object to it
     def print_feature(ast, path)
-      result = format_tags(ast.tags)
-      result << format_feature(ast.name)
-      result << format_steps(ast.background.steps)
-      #prints scenarios
+      file = create_feature_file(ast, path)
+      tags = format_tags(ast.tags)
+      file.puts tags unless tags.nil?
+      file.puts format_feature(ast.name)
+      file.puts format_steps(ast.background.steps)
+      file.puts
+
       ast.each do |scenario|
-        result << format_tags(scenario.tags)
-        result << format_scenario(scenario.name)
-        result << format_steps(scenario)
+        file.puts format_tags(scenario.tags)
+        file.puts format_scenario(scenario.name)
+        file.puts format_steps(scenario)
       end
-      #creates a feature file named after the feature and writes result to the file (path is relative to home directory)
-      result.strip!
-      out_file = File.new(path + "#{convert_to_fs_name(ast.name)}.feature", 'w')
-      out_file.puts(result)
-      out_file.close
+
+      file.close
     end
 
     #prints feature name
     def format_feature(name)
-      "Feature: #{name}\n\n  Background:\n"
+      "Feature: #{name}\n\n  Background:"
     end
 
     #prints scenario name
     def format_scenario(name)
-      "  Scenario: #{name}\n"
+      "  Scenario: #{name}"
     end
 
     #prints steps
@@ -56,21 +61,21 @@ module GherkinRuby
         scenario.each do |step|
           result << "    #{step.keyword} #{step.name}\n"
         end
-        result << "\n"
       end
       result
     end
 
     #prints tags for scenarios
     def format_tags(tags)
-      result = ''
       if tags != []
         result = ' '
         tags.each do |tag|
           result << " @#{tag.name}"
         end
-        result << "\n"
+      else
+        return nil
       end
+
       result
     end
 

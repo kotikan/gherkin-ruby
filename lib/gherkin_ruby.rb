@@ -12,7 +12,7 @@ module GherkinRuby
 
   def self.print(ast,path)
     printer = Printer.new
-    printer.print_feature(ast,path)
+    printer.print_feature(ast, path)
   end
 
   def self.parse_folder(path,feature_group_name)
