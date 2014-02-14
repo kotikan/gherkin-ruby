@@ -468,14 +468,14 @@ module_eval(<<'.,.,', 'gherkin.y', 90)
 
 module_eval(<<'.,.,', 'gherkin.y', 94)
   def _reduce_36(val, _values, result)
-     result = [val[0]] 
+     result = [AST::TableRow.new(val[0])] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 95)
   def _reduce_37(val, _values, result)
-     val[0] << val[2]; result = val[0] 
+     val[0] << AST::TableRow.new(val[2]); result = val[0] 
     result
   end
 .,.,
@@ -549,14 +549,14 @@ module_eval(<<'.,.,', 'gherkin.y', 130)
 
 module_eval(<<'.,.,', 'gherkin.y', 135)
   def _reduce_49(val, _values, result)
-     result = val[2] 
+     result = AST::ExamplesTable.new(val[2]) 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'gherkin.y', 137)
   def _reduce_50(val, _values, result)
-     result = val[2] 
+     result = AST::ExamplesTable.new(val[2]) 
     result
   end
 .,.,

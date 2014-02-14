@@ -92,8 +92,8 @@ rule
   ;
 
   Table:
-    TableRow { result = [val[0]] }
-  | Table Newline TableRow { val[0] << val[2]; result = val[0] }
+    TableRow { result = [AST::TableRow.new(val[0])] }
+  | Table Newline TableRow { val[0] << AST::TableRow.new(val[2]); result = val[0] }
   ;
 
   TableRow:
@@ -133,9 +133,9 @@ rule
 
   Examples:
     EXAMPLES Newline
-        Table { result = val[2] }
+        Table { result = AST::ExamplesTable.new(val[2]) }
   | EXAMPLES Newline
-      Table Newline { result = val[2] }
+      Table Newline { result = AST::ExamplesTable.new(val[2]) }
   ;
 
   Tags:

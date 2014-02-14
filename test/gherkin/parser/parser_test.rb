@@ -117,19 +117,19 @@ Feature: Do something
   Scenario: Foo bar baz
     Given blah foo bar
     Then something else
-      | r1 c1 | r2 c1 |
-      | r1 c2 | r2 c2 |
+      | r1 c1 | r1 c2 |
+      | r2 c1 | r2 c2 |
 """)
         scenarios = feature.scenarios
 
-        table = scenarios.first.steps.last.table
-        table.size.must_equal 2
-        table[0].size.must_equal 2
-        table[1].size.must_equal 2
-        table[0][0].must_equal 'r1 c1'
-        table[0][1].must_equal 'r2 c1'
-        table[1][0].must_equal 'r1 c2'
-        table[1][1].must_equal 'r2 c2'
+        rows = scenarios.first.steps.last.table
+        rows.size.must_equal 2
+        rows[0].must_be_kind_of AST::TableRow
+        rows[0].each.to_a.size.must_equal 2
+        rows[0].each.to_a.must_equal ['r1 c1', 'r1 c2']
+        rows[1].must_be_kind_of AST::TableRow
+        rows[1].each.to_a.size.must_equal 2
+        rows[1].each.to_a.must_equal ['r2 c1', 'r2 c2']
       end
 
       it 'parses feature with no ending newline' do
@@ -186,14 +186,14 @@ Feature: Do something
 
         scenario_outline.must_be_kind_of AST::ScenarioOutline
         scenario_outline.name.must_equal "Foo bar"
-        table = scenario_outline.examples
-        table.size.must_equal 2
-        table[0].size.must_equal 2
-        table[1].size.must_equal 2
-        table[0][0].must_equal 'foo'
-        table[0][1].must_equal 'bar'
-        table[1][0].must_equal 'baz'
-        table[1][1].must_equal 'zab'
+        examples = scenario_outline.examples
+        examples.must_be_kind_of AST::ExamplesTable
+        rows = examples.each.to_a
+        rows.size.must_equal 2
+        rows[0].must_be_kind_of AST::TableRow
+        rows[0].each.to_a.must_equal ['foo', 'bar']
+        rows[1].must_be_kind_of AST::TableRow
+        rows[1].each.to_a.must_equal ['baz', 'zab']
       end
     end
   end
