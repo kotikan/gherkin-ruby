@@ -26,7 +26,7 @@ module GherkinRuby
     end
 
     describe 'Keywords' do
-      %w(Feature: Background: Scenario:).each do |keyword|
+      %w(Feature: Background: Scenario: Examples:).each do |keyword|
         it "parses #{keyword}:" do
           name = keyword[0..-2]
           @lexer.tokenize(keyword).must_equal [[name.upcase.to_sym, name]]
