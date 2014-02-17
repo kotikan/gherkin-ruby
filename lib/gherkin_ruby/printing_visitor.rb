@@ -26,6 +26,7 @@ module GherkinRuby
       feature.description.each { |line| @file.puts "  #{line}" } unless feature.description.nil?
       feature.background.accept(self)
       feature.each { |scenario| scenario.accept(self) }
+      @file.close
     end
 
     def visit_Scenario(scenario)
@@ -96,8 +97,10 @@ module GherkinRuby
 
     private
 
-    def create_feature_file(path, feature)
-      File.new("#{path.join('/')}/#{get_feature_file_name(feature)}.feature")
+    def create_feature_file(path_items, feature)
+      path = path_items.join('/')
+      FileUtils.mkpath path
+      File.new("#{path}/#{get_feature_file_name(feature)}.feature", 'w')
     end
 
     def get_feature_file_name(feature)
