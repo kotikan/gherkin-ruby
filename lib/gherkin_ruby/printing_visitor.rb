@@ -79,7 +79,7 @@ module GherkinRuby
     end
 
     def visit_Step(step)
-      @file.puts "    #{step.keyword} #{step.name}"
+      @file.puts "    #{' ' * (5 - step.keyword.length)}#{step.keyword} #{step.name}"
 
       unless step.doc_string.nil?
         @file.puts '      """'
