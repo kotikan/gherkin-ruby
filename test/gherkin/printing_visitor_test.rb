@@ -42,6 +42,18 @@ module GherkinRuby
       printer.mock_file_location.must_equal './serve_coffee.feature'
     end
 
+    it 'should print a feature file that has no background' do
+      feature = create_feature_without_background
+      parser = GherkinRuby::Parser.new
+      printer = GherkinRuby::PrintingVisitor.new
+      ast = parser.parse(feature)
+
+      printer.visit(ast)
+
+      printer.mock_file.string.must_equal feature
+      printer.mock_file_location.must_equal './serve_coffee.feature'
+    end
+
     it 'should allow the base directory to be selected' do
       feature = create_feature
       parser = GherkinRuby::Parser.new

@@ -24,7 +24,7 @@ module GherkinRuby
 
       @file.puts "Feature: #{feature.name}"
       feature.description.each { |line| @file.puts "  #{line}" } unless feature.description.nil?
-      feature.background.accept(self)
+      feature.background.accept(self) unless feature.background.nil?
       feature.each { |scenario| scenario.accept(self) }
       @file.close
     end
