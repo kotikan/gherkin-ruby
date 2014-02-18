@@ -66,6 +66,7 @@ module GherkinRuby
 
         printer.visit(ast)
 
+
         files = [
             "#{dir}/first_group/first_inner/serve_coffee.feature",
             "#{dir}/first_group/second_inner/serve_many_coffees.feature"
@@ -76,6 +77,30 @@ module GherkinRuby
           file_contents = File.read file
           file_contents.must_equal features[i]
         end
+      }
+    end
+
+    it 'should not print groups that contain no feature files' do
+      Dir.mktmpdir { |dir|
+        parser = GherkinRuby::Parser.new
+        printer = GherkinRuby::PrintingVisitor.new dir
+        features = [
+            create_feature,
+            create_feature_with_scenario_outline
+        ]
+        ast = GherkinRuby::AST::FeatureGroup.new('first_group', [
+            GherkinRuby::AST::FeatureGroup.new('not_empty', [
+                parser.parse(features[0])
+            ]), GherkinRuby::AST::FeatureGroup.new('empty')
+        ])
+
+        printer.visit(ast)
+
+        file = "#{dir}/first_group/not_empty/serve_coffee.feature"
+        dir = "#{dir}/first_group/empty"
+
+        File.exists?(file).must_equal true
+        Dir.exist?(dir).must_equal false
       }
     end
   end
