@@ -6,7 +6,7 @@ module GherkinRuby
   describe 'parses a directory of feature files' do
     before do
       @scenario = """"""
-      path ='fixtures/'
+      path = File.dirname(__FILE__) + '/fixtures/'
       folder_parser  = GherkinRuby::FolderParser.new
       @result = folder_parser.parse_folder(path, 'fixtures')
     end
