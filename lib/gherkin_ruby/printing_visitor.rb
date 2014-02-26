@@ -98,9 +98,13 @@ module GherkinRuby
     private
 
     def create_feature_file(path_items, feature)
-      path = path_items.join('/')
+      path = format_path(path_items.join('/'))
       FileUtils.mkpath path
       File.new("#{path}/#{get_feature_file_name(feature)}.feature", 'w')
+    end
+
+    def format_path(path)
+      path.downcase.gsub(/\s/, '_')
     end
 
     def get_feature_file_name(feature)
