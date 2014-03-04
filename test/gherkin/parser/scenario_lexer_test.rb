@@ -90,5 +90,34 @@ Scenario: a complete scenario
       end
     end
 
+    describe 'Complete scenario outline' do
+      it 'parses complete scenario outlines' do
+        tokens = @lexer.tokenize('
+@tag-1 @tag-2
+Scenario Outline: a complete scenario outline
+  Given <one> step
+  And <another> step
+  When <this> is parsed
+  Then <it> should be correct
+  Examples:
+    | one | another | this | it |
+    | foo | bar     | baz  | uh |
+')
+
+        tokens.must_equal [
+            [:NEWLINE, "\n"],
+            [:TAG, "tag-1"], [:TAG, "tag-2"], [:NEWLINE, "\n"],
+            [:OUTLINE, "Scenario Outline"], [:TEXT, "a complete scenario outline"], [:NEWLINE, "\n"],
+            [:GIVEN, "Given"], [:TEXT, "<one> step"], [:NEWLINE, "\n"],
+            [:AND, "And"], [:TEXT, "<another> step"], [:NEWLINE, "\n"],
+            [:WHEN, "When"], [:TEXT, "<this> is parsed"], [:NEWLINE, "\n"],
+            [:THEN, "Then"], [:TEXT, "<it> should be correct"], [:NEWLINE, "\n"],
+            [:EXAMPLES, "Examples"], [:NEWLINE, "\n"],
+            [:TABLE_ROW_START, "|"], [:TABLE_CELL, "one"], [:TABLE_CELL, "another"], [:TABLE_CELL, "this"], [:TABLE_CELL, "it"], [:NEWLINE, "\n"],
+            [:TABLE_ROW_START, "|"], [:TABLE_CELL, "foo"], [:TABLE_CELL, "bar"], [:TABLE_CELL, "baz"], [:TABLE_CELL, "uh"], [:NEWLINE, "\n"]
+        ]
+      end
+    end
+
   end
 end
