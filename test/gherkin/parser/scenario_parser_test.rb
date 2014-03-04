@@ -71,6 +71,22 @@ Scenario: Foo bar baz
         table[1][0].must_equal 'r1 c2'
         table[1][1].must_equal 'r2 c2'
       end
+
+      it 'parses a scenario outline' do
+        scenario = parse('
+Scenario Outline: outline
+  Given <first> step
+  Then <outcome> step
+  Examples:
+    | first | outcome |
+    | foo   | bar     |
+')
+        examples = scenario.examples
+        examples.to_a[0][0].must_equal 'first'
+        examples.to_a[0][1].must_equal 'outcome'
+        examples.to_a[1][0].must_equal 'foo'
+        examples.to_a[1][1].must_equal 'bar'
+      end
     end
   end
 end

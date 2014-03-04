@@ -12,7 +12,7 @@ require 'racc/parser.rb'
 module GherkinRuby
   class ScenarioParser < Racc::Parser
 
-module_eval(<<'...end scenario.y/module_eval...', 'scenario.y', 87)
+module_eval(<<'...end scenario.y/module_eval...', 'scenario.y', 105)
 
   def parse(input)
     @yydebug = true if ENV['DEBUG_RACC']
@@ -22,92 +22,108 @@ module_eval(<<'...end scenario.y/module_eval...', 'scenario.y', 87)
 ##### State transition tables begin ###
 
 racc_action_table = [
-    10,    10,     4,    27,    10,    19,    20,    21,    22,    23,
-    32,    10,    10,    34,    34,    47,    46,    19,    20,    21,
-    22,    23,    43,    10,    10,    25,     4,    16,    19,    20,
-    21,    22,    23,    10,     4,    14,     5,     7,    13,     4,
-     4,     4,     5,     7,     4,    40,    10,    11,     8,    44,
-     4,     4 ]
+    13,    13,    13,    13,     5,    35,    13,     5,    13,    25,
+    26,    27,    28,    29,    43,    45,    45,    45,    45,    63,
+    62,    58,    13,     5,    31,     5,    32,    13,     5,    25,
+    26,    27,    28,    29,    25,    26,    27,    28,    29,    13,
+     5,     5,     5,     5,    13,    53,    25,    26,    27,    28,
+    29,    25,    26,    27,    28,    29,     5,    13,    39,    18,
+     6,     8,    16,     9,     5,    13,    17,     6,     8,    13,
+     9,    14,    20,    21,    59,     5,     5,    10,    39 ]
 
 racc_action_check = [
-    26,    37,    32,    18,    45,    26,    26,    26,    26,    26,
-    26,    38,    28,    26,    37,    45,    45,    28,    28,    28,
-    28,    28,    38,    15,    12,    16,    11,    12,    15,    15,
-    15,    15,    15,     3,     6,     8,     3,     3,     6,     0,
-    29,    30,     0,     0,    17,    34,    36,     5,     1,    39,
-    42,    25 ]
+    48,    60,    34,    50,    43,    24,    61,    31,    51,    34,
+    34,    34,    34,    34,    34,    48,    60,    34,    50,    61,
+    61,    51,    36,    32,    20,    17,    21,    37,    14,    36,
+    36,    36,    36,    36,    37,    37,    37,    37,    37,    19,
+    39,    40,    41,    23,    22,    45,    19,    19,    19,    19,
+    19,    22,    22,    22,    22,    22,     7,     3,    47,    10,
+     3,     3,     7,     3,     0,    49,     8,     0,     0,    15,
+     0,     6,    15,    15,    52,    55,    57,     1,    33 ]
 
 racc_action_pointer = [
-    37,    48,   nil,    31,   nil,    30,    32,   nil,    35,   nil,
-   nil,    24,    22,   nil,   nil,    21,     8,    42,   -14,   nil,
-   nil,   nil,   nil,   nil,   nil,    49,    -2,   nil,    10,    38,
-    39,   nil,     0,   nil,    29,   nil,    44,    -1,     9,    33,
-   nil,   nil,    48,   nil,   nil,     2,   nil,   nil ]
+    62,    77,   nil,    55,   nil,   nil,    52,    54,    47,   nil,
+    59,   nil,   nil,   nil,    26,    67,   nil,    23,   nil,    37,
+     5,     7,    42,    41,   -14,   nil,   nil,   nil,   nil,   nil,
+   nil,     5,    21,    71,     0,   nil,    20,    25,   nil,    38,
+    39,    40,   nil,     2,   nil,    27,   nil,    51,    -2,    63,
+     1,     6,    56,   nil,   nil,    73,   nil,    74,   nil,   nil,
+    -1,     4,   nil,   nil ]
 
 racc_action_default = [
-   -30,   -30,    -1,   -30,    -3,   -30,   -30,   -28,   -30,    -2,
-    -4,   -30,   -30,   -29,    48,   -30,   -30,    -5,   -30,   -13,
-   -14,   -15,   -16,   -17,   -26,   -30,    -6,   -12,   -30,    -7,
-    -9,   -11,   -30,   -21,   -30,   -27,    -8,   -10,   -30,   -23,
-   -24,   -22,   -30,   -19,   -25,   -30,   -18,   -20 ]
+   -36,   -36,    -1,   -36,    -3,    -5,   -36,   -36,   -36,   -34,
+   -36,    -2,    -4,    -6,   -36,   -36,   -35,   -36,    64,   -36,
+   -36,   -36,   -36,    -7,   -36,   -15,   -16,   -17,   -18,   -19,
+   -28,   -36,   -36,   -36,    -8,   -14,   -36,   -36,   -30,   -36,
+    -9,   -11,   -13,   -36,   -23,   -36,   -29,   -36,   -36,   -10,
+   -12,   -36,   -25,   -26,   -31,   -32,   -24,   -36,   -21,   -27,
+   -33,   -36,   -20,   -22 ]
 
 racc_goto_table = [
-     3,    24,    33,    29,     2,    30,    12,     9,    42,     1,
-    39,    15,    31,    41,    35,   nil,   nil,    26,   nil,   nil,
-   nil,   nil,   nil,   nil,   nil,    28,   nil,   nil,   nil,    36,
-    37,   nil,    38,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-   nil,   nil,    45 ]
+     3,    30,    56,    40,    33,    57,    38,    15,    41,    52,
+     2,     1,    56,    11,    19,   nil,    42,    22,    46,    47,
+    54,     4,    55,    34,    12,   nil,   nil,   nil,   nil,   nil,
+   nil,    36,    37,   nil,   nil,   nil,   nil,   nil,   nil,    48,
+    49,    50,   nil,    51,   nil,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,   nil,   nil,   nil,    60,   nil,    61 ]
 
 racc_goto_check = [
-     3,     4,    10,     6,     2,     7,     3,     2,     9,     1,
-    11,     3,     4,    10,     4,   nil,   nil,     3,   nil,   nil,
-   nil,   nil,   nil,   nil,   nil,     3,   nil,   nil,   nil,     3,
-     3,   nil,     3,   nil,   nil,   nil,   nil,   nil,   nil,   nil,
-   nil,   nil,     3 ]
+     3,     5,    11,     7,     5,    10,    14,     3,     8,    12,
+     2,     1,    11,     2,     3,   nil,     5,     3,     5,     5,
+    14,     4,     8,     3,     4,   nil,   nil,   nil,   nil,   nil,
+   nil,     3,     3,   nil,   nil,   nil,   nil,   nil,   nil,     3,
+     3,     3,   nil,     3,   nil,   nil,   nil,   nil,   nil,   nil,
+   nil,   nil,   nil,   nil,   nil,     3,   nil,     3 ]
 
 racc_goto_pointer = [
-   nil,     9,     4,     0,   -14,   nil,   -23,   -21,   nil,   -30,
-   -24,   -24,   nil ]
+   nil,    11,    10,     0,    21,   -18,   nil,   -31,   -26,   nil,
+   -46,   -48,   -36,   nil,   -27 ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil,   nil,    17,   nil,   nil,    18,   nil,
-   nil,   nil,     6 ]
+   nil,   nil,   nil,   nil,   nil,   nil,    23,   nil,   nil,    24,
+   nil,    44,   nil,     7,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  1, 19, :_reduce_1,
-  2, 19, :_reduce_2,
-  1, 21, :_reduce_none,
-  2, 21, :_reduce_none,
-  1, 22, :_reduce_5,
-  2, 22, :_reduce_6,
-  3, 22, :_reduce_7,
-  4, 22, :_reduce_8,
-  3, 22, :_reduce_9,
-  4, 22, :_reduce_10,
-  3, 22, :_reduce_11,
-  2, 23, :_reduce_12,
-  1, 26, :_reduce_none,
-  1, 26, :_reduce_none,
-  1, 26, :_reduce_none,
-  1, 26, :_reduce_none,
-  1, 26, :_reduce_none,
-  5, 24, :_reduce_18,
-  1, 27, :_reduce_19,
-  3, 27, :_reduce_20,
-  1, 25, :_reduce_21,
-  3, 25, :_reduce_22,
-  2, 28, :_reduce_23,
-  1, 29, :_reduce_24,
-  2, 29, :_reduce_25,
-  4, 20, :_reduce_26,
-  6, 20, :_reduce_27,
-  1, 30, :_reduce_28,
-  2, 30, :_reduce_29 ]
+  1, 21, :_reduce_1,
+  2, 21, :_reduce_2,
+  1, 21, :_reduce_3,
+  2, 21, :_reduce_4,
+  1, 23, :_reduce_none,
+  2, 23, :_reduce_none,
+  1, 25, :_reduce_7,
+  2, 25, :_reduce_8,
+  3, 25, :_reduce_9,
+  4, 25, :_reduce_10,
+  3, 25, :_reduce_11,
+  4, 25, :_reduce_12,
+  3, 25, :_reduce_13,
+  2, 26, :_reduce_14,
+  1, 29, :_reduce_none,
+  1, 29, :_reduce_none,
+  1, 29, :_reduce_none,
+  1, 29, :_reduce_none,
+  1, 29, :_reduce_none,
+  5, 27, :_reduce_20,
+  1, 30, :_reduce_21,
+  3, 30, :_reduce_22,
+  1, 28, :_reduce_23,
+  3, 28, :_reduce_24,
+  2, 31, :_reduce_25,
+  1, 32, :_reduce_26,
+  2, 32, :_reduce_27,
+  4, 22, :_reduce_28,
+  6, 22, :_reduce_29,
+  5, 24, :_reduce_30,
+  7, 24, :_reduce_31,
+  3, 34, :_reduce_32,
+  4, 34, :_reduce_33,
+  1, 33, :_reduce_34,
+  2, 33, :_reduce_35 ]
 
-racc_reduce_n = 30
+racc_reduce_n = 36
 
-racc_shift_n = 48
+racc_shift_n = 64
 
 racc_token_table = {
   false => 0,
@@ -116,20 +132,22 @@ racc_token_table = {
   :FEATURE => 3,
   :BACKGROUND => 4,
   :SCENARIO => 5,
-  :TAG => 6,
-  :GIVEN => 7,
-  :WHEN => 8,
-  :THEN => 9,
-  :AND => 10,
-  :BUT => 11,
-  :DOC_STRING_START => 12,
-  :DOC_STRING_LINE => 13,
-  :DOC_STRING_END => 14,
-  :TABLE_ROW_START => 15,
-  :TABLE_CELL => 16,
-  :TEXT => 17 }
+  :OUTLINE => 6,
+  :EXAMPLES => 7,
+  :TAG => 8,
+  :GIVEN => 9,
+  :WHEN => 10,
+  :THEN => 11,
+  :AND => 12,
+  :BUT => 13,
+  :DOC_STRING_START => 14,
+  :DOC_STRING_LINE => 15,
+  :DOC_STRING_END => 16,
+  :TABLE_ROW_START => 17,
+  :TABLE_CELL => 18,
+  :TEXT => 19 }
 
-racc_nt_base = 18
+racc_nt_base = 20
 
 racc_use_result_var = true
 
@@ -156,6 +174,8 @@ Racc_token_to_s_table = [
   "FEATURE",
   "BACKGROUND",
   "SCENARIO",
+  "OUTLINE",
+  "EXAMPLES",
   "TAG",
   "GIVEN",
   "WHEN",
@@ -172,6 +192,7 @@ Racc_token_to_s_table = [
   "Root",
   "Scenario",
   "Newline",
+  "ScenarioOutline",
   "Steps",
   "Step",
   "DocString",
@@ -180,7 +201,8 @@ Racc_token_to_s_table = [
   "DocStringLines",
   "TableRow",
   "TableCells",
-  "Tags" ]
+  "Tags",
+  "Examples" ]
 
 Racc_debug_parser = false
 
@@ -202,69 +224,79 @@ module_eval(<<'.,.,', 'scenario.y', 17)
   end
 .,.,
 
-# reduce 3 omitted
-
-# reduce 4 omitted
-
-module_eval(<<'.,.,', 'scenario.y', 26)
-  def _reduce_5(val, _values, result)
-     result = [val[0]] 
+module_eval(<<'.,.,', 'scenario.y', 18)
+  def _reduce_3(val, _values, result)
+     result = val[0] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 27)
-  def _reduce_6(val, _values, result)
-     result = [val[0]] 
+module_eval(<<'.,.,', 'scenario.y', 19)
+  def _reduce_4(val, _values, result)
+     result = val[1] 
     result
   end
 .,.,
+
+# reduce 5 omitted
+
+# reduce 6 omitted
 
 module_eval(<<'.,.,', 'scenario.y', 28)
   def _reduce_7(val, _values, result)
-     val[0].doc_string = val[2]; result = [val[0]] 
+     result = [val[0]] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'scenario.y', 29)
   def _reduce_8(val, _values, result)
-     val[0].doc_string = val[2]; result = [val[0]] 
+     result = [val[0]] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'scenario.y', 30)
   def _reduce_9(val, _values, result)
-     val[0].table = val[2]; result = [val[0]] 
+     val[0].doc_string = val[2]; result = [val[0]] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'scenario.y', 31)
   def _reduce_10(val, _values, result)
-     val[0].table = val[2]; result = [val[0]] 
+     val[0].doc_string = val[2]; result = [val[0]] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'scenario.y', 32)
   def _reduce_11(val, _values, result)
+     val[0].table = val[2]; result = [val[0]] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 33)
+  def _reduce_12(val, _values, result)
+     val[0].table = val[2]; result = [val[0]] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 34)
+  def _reduce_13(val, _values, result)
      val[2].unshift(val[0]); result = val[2] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 36)
-  def _reduce_12(val, _values, result)
+module_eval(<<'.,.,', 'scenario.y', 38)
+  def _reduce_14(val, _values, result)
      result = AST::Step.new(val[1], val[0]); result.pos(filename, lineno) 
     result
   end
 .,.,
-
-# reduce 13 omitted
-
-# reduce 14 omitted
 
 # reduce 15 omitted
 
@@ -272,85 +304,117 @@ module_eval(<<'.,.,', 'scenario.y', 36)
 
 # reduce 17 omitted
 
-module_eval(<<'.,.,', 'scenario.y', 44)
-  def _reduce_18(val, _values, result)
+# reduce 18 omitted
+
+# reduce 19 omitted
+
+module_eval(<<'.,.,', 'scenario.y', 46)
+  def _reduce_20(val, _values, result)
      result = val[2] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 48)
-  def _reduce_19(val, _values, result)
-     result = [val[0]] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'scenario.y', 49)
-  def _reduce_20(val, _values, result)
-     result = val[0] << val[2] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'scenario.y', 53)
+module_eval(<<'.,.,', 'scenario.y', 50)
   def _reduce_21(val, _values, result)
      result = [val[0]] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 54)
+module_eval(<<'.,.,', 'scenario.y', 51)
   def _reduce_22(val, _values, result)
-     val[0] << val[2]; result = val[0] 
+     result = val[0] << val[2] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 58)
+module_eval(<<'.,.,', 'scenario.y', 55)
   def _reduce_23(val, _values, result)
-     result = val[1] 
-    result
-  end
-.,.,
-
-module_eval(<<'.,.,', 'scenario.y', 62)
-  def _reduce_24(val, _values, result)
      result = [val[0]] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 63)
+module_eval(<<'.,.,', 'scenario.y', 56)
+  def _reduce_24(val, _values, result)
+     val[0] << val[2]; result = val[0] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 60)
   def _reduce_25(val, _values, result)
+     result = val[1] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 64)
+  def _reduce_26(val, _values, result)
+     result = [val[0]] 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 65)
+  def _reduce_27(val, _values, result)
      result = val[0] << val[1] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 68)
-  def _reduce_26(val, _values, result)
+module_eval(<<'.,.,', 'scenario.y', 70)
+  def _reduce_28(val, _values, result)
      result = AST::Scenario.new(val[1], val[3]); result.pos(filename, lineno - 1) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 71)
-  def _reduce_27(val, _values, result)
+module_eval(<<'.,.,', 'scenario.y', 73)
+  def _reduce_29(val, _values, result)
      result = AST::Scenario.new(val[3], val[5], val[0]); result.pos(filename, lineno - 2) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 75)
-  def _reduce_28(val, _values, result)
+module_eval(<<'.,.,', 'scenario.y', 78)
+  def _reduce_30(val, _values, result)
+     result = AST::ScenarioOutline.new(val[1], val[3], val[4]); result.pos(filename, lineno - 1) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 81)
+  def _reduce_31(val, _values, result)
+     result = AST::ScenarioOutline.new(val[3], val[5], val[6], val[0]); result.pos(filename, lineno - 2) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 86)
+  def _reduce_32(val, _values, result)
+     result = AST::ExamplesTable.new(val[2]) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 88)
+  def _reduce_33(val, _values, result)
+     result = AST::ExamplesTable.new(val[2]) 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'scenario.y', 93)
+  def _reduce_34(val, _values, result)
      result = [AST::Tag.new(val[0])] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'scenario.y', 76)
-  def _reduce_29(val, _values, result)
+module_eval(<<'.,.,', 'scenario.y', 94)
+  def _reduce_35(val, _values, result)
      result = val[0] << AST::Tag.new(val[1]) 
     result
   end
